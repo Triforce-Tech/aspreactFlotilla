@@ -7,7 +7,7 @@ using ClassDB.SqlKataTools;
 
 namespace Flotilla_netCORE.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class EstadoController : ControllerBase
     {
@@ -37,7 +37,7 @@ namespace Flotilla_netCORE.Controllers
             {
                 estados = DataReaderMapper<Estado>.MapToList(reader);
             });
-            
+
             // llenado de objeto tipo clase
             //UserSession users = new UserSession();
             //execute.DataReader(sql.ToString(), reader =>
@@ -48,6 +48,7 @@ namespace Flotilla_netCORE.Controllers
             return StatusCode(StatusCodes.Status200OK, estados);
 
 
-        
+
+        }
     }
 }

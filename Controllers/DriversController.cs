@@ -7,7 +7,7 @@ using ClassDB.SqlKataTools;
 
 namespace Flotilla_netCORE.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class DriversController : ControllerBase
     {
@@ -67,7 +67,10 @@ namespace Flotilla_netCORE.Controllers
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
             var sql = execute.ExecuterCompiler(query);
 
+    
             //var resp = execute.ExecuterOracle(sql);
+
+
             var resp = execute.ExecuterOracle(sql);
             return StatusCode(StatusCodes.Status200OK, resp);
 

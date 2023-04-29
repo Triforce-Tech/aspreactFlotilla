@@ -8,7 +8,7 @@ using ClassDB.SqlKataTools;
 
 namespace Flotilla_netCORE.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class operadorController : ControllerBase
     {
