@@ -57,7 +57,7 @@ namespace Flotilla_netCORE.Controllers
 
             var query = new Query("Vehiculo").AsInsert(new
             {
-                UUID = request.UUID,
+                
                 UUID_USUARIO = request.UUID_USUARIO,
                 UUID_RUTA = request.UUID_RUTA,
                 UUID_VEHICULO = request.UUID_VEHICULO,

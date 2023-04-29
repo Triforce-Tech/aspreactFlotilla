@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+//import Table from 'react-bootstrap/Table';
+//import Button from 'react-bootstrap/Button';
+//import Form from 'react-bootstrap/Form';
 import NewOrder from './NewOrder';
+import { Table, Button, Form  } from 'reactstrap'
+
+
 import {
     BrowserRouter as Router,
     Link,

@@ -7,7 +7,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
         "PROVIDER": "oracle",
-        "STR": "CONNECTION TIMEOUT=120;PASSWORD=Andromeda;DATA SOURCE= (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.80.137 )(PORT = 1521))(CONNECT_DATA = (SID =ORCL ))) ;USER ID=FLOTILLA_NET"
+        "STR": "CONNECTION TIMEOUT=120;PASSWORD=Andromeda;DATA SOURCE= (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.80.137 )(PORT = 1521))(CONNECT_DATA = (SID =ORCL ))) ;USER ID=FNREACT"
       },
       "applicationUrl": "http://localhost:5119",
       "nativeDebugging": false

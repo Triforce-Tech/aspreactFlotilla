@@ -11,77 +11,84 @@ namespace Flotilla_netCORE.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-
-        private readonly OraConnect _context;
-
-        public UsuarioController(OraConnect context)
-        {
-            _context = context;
-        }
-
         //obtener data
         [HttpGet]
-        [Route("user")]
-        public async Task<IActionResult> user()
+        [Route("Tipousuario")]
+        public async Task<IActionResult> Tipousuario()
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<Usuario> usuario = new List<Usuario>();
-            //query en sqlkata
+            var query1 = new Query();
 
-            Query query = new Query();
-            query.Select("UUID");
-            query.From("Usuario");
-            //query compilacion
-            var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
-            execute.DataReader(sql.ToString(), reader =>
+            query1.Select("UUID").Select("DESCRIPCION").From("TIPO_USUARIO");
+
+            var sql = execute.ExecuterCompiler(query1);
+            List<TipoUsuario> estado = new List<TipoUsuario>();
+            execute.DataReader(sql, reader =>
             {
-                usuario = DataReaderMapper<Usuario>.MapToList(reader);
+                estado = DataReaderMapper<TipoUsuario>.MapToList(reader).ToList();
             });
 
-            // llenado de objeto tipo clase
-            //UserSession users = new UserSession();
-            //execute.DataReader(sql.ToString(), reader =>
-            //{
-            //    users = DataReaderMapper<UserSession>.MapToObject(reader);
-            //});
 
-            return StatusCode(StatusCodes.Status200OK, usuario);
+            return StatusCode(StatusCodes.Status200OK, estado);
 
         }
 
+        //    [HttpGet]
+        //    [Route("TipoUsuario")]
+        //    public async Task<IActionResult> TipoUsuario()
+        //    {
+        //        ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+        //        var query1 = new Query();
 
-        [HttpPost]
-        [Route("Guardar")]
-        public async Task<IActionResult> Guardar([FromBody] Usuario request)
-        {
-            var query = new Query("UserSession").AsInsert(new
-            {
-                UUID = request.UUID,
-                PRIMER_NOMBRE = request.PRIMER_NOMBRE,
-                SEGUNDO_NOMBRE = request.SEGUNDO_NOMBRE,
-                TERCER_NOMBER = request.SEGUNDO_NOMBRE,
-                PRIMER_APELLIDO = request.PRIMER_APELLIDO,
-                SEGUNDO_APELLIDO = request.SEGUNDO_APELLIDO,
-                DPI = request.DPI,
-                DIRECCION = request.DIRECCION,
-                TELEFONO = request.TELEFONO,
-                CORREO = request.CORREO,
-                EMPRESA = request.EMPRESA,
-                FECHA_INGRESO = new DateTime(2009, 8, 4),
-                FECHA_MODIFICACION = new DateTime(2009, 8, 4),
-                UUID_ESTADO = request.UUID_ESTADO,
-                UUID_TIPO_USUARIO = request.UUID_TIPO_USUARIO,
-                UUID_USER_SESSION = request.UUID_USER_SESSION
-            });
-            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            var sql = execute.ExecuterCompiler(query);
+        //        query1.Select("UUID").Select("DESCRIPCION").From("TIPO_USUARIO");
 
-            //var resp = execute.ExecuterOracle(sql);
-        var resp = "";
-            return StatusCode(StatusCodes.Status200OK, resp);
-        }
-        
+        //        var sql = execute.ExecuterCompiler(query1);
+        //        List<TipoUsuario> tipo = new List<TipoUsuario>();
+        //        execute.DataReader(sql, reader =>
+        //        {
+        //            tipo = DataReaderMapper<TipoUsuario>.MapToList(reader).ToList();
+        //        });
+
+
+        //        return StatusCode(StatusCodes.Status200OK, tipo);
+
+        //    }
+
+
+        //    [HttpPost]
+        //    [Route("Guardar")]
+        //    public async Task<IActionResult> Guardar([FromBody] Usuario request)
+        //    {
+        //        ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+
+
+        //        var query = new Query("UserSession").AsInsert(new
+        //        {
+
+        //            PRIMER_NOMBRE = request.PRIMER_NOMBRE,
+        //            SEGUNDO_NOMBRE = request.SEGUNDO_NOMBRE,
+        //            TERCER_NOMBER = request.SEGUNDO_NOMBRE,
+        //            PRIMER_APELLIDO = request.PRIMER_APELLIDO,
+        //            SEGUNDO_APELLIDO = request.SEGUNDO_APELLIDO,
+        //            DPI = request.DPI,
+        //            DIRECCION = request.DIRECCION,
+        //            TELEFONO = request.TELEFONO,
+        //            CORREO = request.CORREO,
+        //            EMPRESA = request.EMPRESA,
+        //            FECHA_INGRESO = new DateTime(2009, 8, 4),
+        //            FECHA_MODIFICACION = new DateTime(2009, 8, 4),
+        //            UUID_ESTADO = request.UUID_ESTADO,
+        //            UUID_TIPO_USUARIO = request.UUID_TIPO_USUARIO,
+        //            UUID_USER_SESSION = request.UUID_USER_SESSION
+        //        });
+
+        //        var sql2 = execute.ExecuterCompiler(query);
+
+        //        //var resp = execute.ExecuterOracle(sql);
+        //        var resp = "";
+        //        return StatusCode(StatusCodes.Status200OK, resp);
+        //    }
+
     }
 
 }

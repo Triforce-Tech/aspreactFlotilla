@@ -45,12 +45,6 @@ const ValidaUsuario = ({ data }) => {
             </tbody>
         </Table>
 
-
-
-
-
-
-
     )
 }
 export default ValidaUsuario;
