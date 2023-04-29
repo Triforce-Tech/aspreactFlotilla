@@ -71,7 +71,7 @@ namespace Flotilla_netCORE.Controllers
             var sql = execute.ExecuterCompiler(query);
 
             //var resp = execute.ExecuterOracle(sql);
-            var resp = execute.ExecuterOracle(sql);
+        var resp = "";
             return StatusCode(StatusCodes.Status200OK, resp);
 
         }
