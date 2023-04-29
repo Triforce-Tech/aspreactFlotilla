@@ -1,8 +1,5 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import RegisterVehicle from './RegisterVehicle';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { NavDropdown, Navbar, Nav, Container } from 'reactstrap';
 import {
   BrowserRouter as Router,
   Link,

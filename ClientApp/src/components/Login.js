@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './styles.css';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+import { Button } from 'reactstrap';
 
 function Login() {
   const [email, setEmail] = useState('');
