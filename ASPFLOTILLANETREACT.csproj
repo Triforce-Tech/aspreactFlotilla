@@ -22,13 +22,21 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClassDB\**" />
+    <Compile Remove="Test\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClassDB\**" />
+    <Content Remove="Test\**" />
+    <EmbeddedResource Remove="ClassDB\**" />
+    <EmbeddedResource Remove="Test\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClassDB\**" />
+    <None Remove="Test\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Desktop\Proyectos\proyecto sitio web vehiculos\Triforce-Tech\ClassDB\ClassDB.csproj" />
+    <ProjectReference Include="ClassDB\ClassDB.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "ClassDB": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "dmbsprovider": "oracle",
+        "user": "FLOTILLANET",
+        "pass": "Andromeda",
+        "sid": "orcl"
+      },
+      "remoteDebugEnabled": false
+    }
+  }
+}

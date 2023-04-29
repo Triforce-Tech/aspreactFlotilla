@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Test": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "User": "FLOTILLA_NET",
+        "DbmsProvider": "oracle",
+        "Sid": "orcl",
+        "Ip": "192.168.80.129",
+        "Puerto": "1521",
+        "Pass": "Andromeda"
+      }
+    }
+  }
+}
