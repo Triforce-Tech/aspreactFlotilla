@@ -9,7 +9,7 @@ namespace ClassDB.EntidadesDB
     public partial class CatalogoPrecio
 
     {
-        public string UUID_TIPO_PRECIO { get; set; }
+        public string UUID { get; set; }
         public string UUID_TIPO_VEHICULO { get; set; }
         public string PRECIO_POR_KM { get; set; }
 

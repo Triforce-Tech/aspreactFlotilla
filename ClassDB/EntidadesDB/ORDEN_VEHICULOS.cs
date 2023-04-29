@@ -9,7 +9,7 @@ namespace ClassDB.EntidadesDB
 {
     public partial class OrdenVehiculos
     {
-    public string UUID_ORDEN { get; set; }
+    public string UUID { get; set; }
     public string UUID_USUARIO { get; set; }
     public string UUID_RUTA { get; set; }
     public string UUID_VEHICULO { get; set; }

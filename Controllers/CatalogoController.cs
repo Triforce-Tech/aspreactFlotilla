@@ -28,7 +28,7 @@ namespace Flotilla_netCORE.Controllers
             //query en sqlkata
 
             Query query = new Query();
-            query.Select("UUID_CATALOG");
+            query.Select("UUID");
             query.From("Catalogo");
             //query compilacion
             var sql = execute.ExecuterCompiler(query);

@@ -8,7 +8,7 @@ namespace ClassDB.EntidadesDB
 {
     public partial class Usuario
     {
-        public string UUID_USUARIO { get; set; }
+        public string UUID { get; set; }
         public string PRIMER_NOMBRE { get; set; }
         public string SEGUNDO_NOMBRE { get; set; }
         public string TERCER_NOMBER { get; set; }

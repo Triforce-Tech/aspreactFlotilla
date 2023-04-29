@@ -4,7 +4,6 @@ using ClassDB.ConnectDB.ConectionDecider;
 using ClassDB.EntidadesDB;
 using ClassDB.SqlKataTools;
 using Microsoft.Win32;
-using Org.BouncyCastle.Asn1.Ocsp;
 using SqlKata;
 
 Console.WriteLine("Hello, World!");

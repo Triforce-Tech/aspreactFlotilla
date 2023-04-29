@@ -9,7 +9,7 @@ namespace ClassDB.EntidadesDB
 {
     public partial class OrdenOp
     {
-        public string UUID_ORDEN_OP { get; set; }
+        public string UUID { get; set; }
         public string UUID_OPERADOR { get; set; }
         public string UUID_ORDEN { get; set; }
         public string UUID_ESTADO { get; set; }

@@ -10,7 +10,7 @@ namespace ClassDB.EntidadesDB
 {
     public partial class HistoricoGeneral
     {
-        public string UUID_HISTORIC { get; set; }
+        public string UUID { get; set; }
         public string UUID_USUARIO { get; set; }
         public string DESCRIPCION { get; set; }
         public string UUID_TRANSACTION { get; set; }

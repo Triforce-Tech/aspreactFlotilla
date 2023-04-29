@@ -29,7 +29,7 @@ namespace Flotilla_netCORE.Controllers
             //query en sqlkata
 
             Query query = new Query();
-            query.Select("UUID_RESULT");
+            query.Select("UUID");
             query.From("SoporteResultado");
             //query compilacion
             var sql = execute.ExecuterCompiler(query);
@@ -57,7 +57,7 @@ namespace Flotilla_netCORE.Controllers
 
             var query = new Query("Vehiculo").AsInsert(new
             {
-                UUID_RESULT = request.UUID_RESULT,
+                UUID = request.UUID,
                 UUID_SOPORTE = request.UUID_SOPORTE,
                 ESTADO = request.ESTADO,
                 FECHA_CARGA = new DateTime(2009, 8, 4),

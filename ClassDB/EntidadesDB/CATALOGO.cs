@@ -10,7 +10,7 @@ namespace ClassDB.EntidadesDB
 {
     public partial class Catalogo
     {
-        public string UUID_CATALOG { get; set; }
+        public string UUID { get; set; }
         public string CATALOGO { get; set; }
         public string DESCRIPCION { get; set; }
         public string UUID_ESTADO { get; set; }

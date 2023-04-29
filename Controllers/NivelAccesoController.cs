@@ -28,7 +28,7 @@ namespace Flotilla_netCORE.Controllers
             //query en sqlkata
 
             Query query = new Query();
-            query.Select("UUID_NIVEL");
+            query.Select("UUID");
             query.From("NivelAccesso");
             //query compilacion
             var sql = execute.ExecuterCompiler(query);

@@ -29,7 +29,7 @@ namespace Flotilla_netCORE.Controllers
             //query en sqlkata
 
             Query query = new Query();
-            query.Select("UUID_USUARIO");
+            query.Select("UUID");
             query.From("Usuario");
             //query compilacion
             var sql = execute.ExecuterCompiler(query);
@@ -57,7 +57,7 @@ namespace Flotilla_netCORE.Controllers
         {
             var query = new Query("UserSession").AsInsert(new
             {
-                UUID_USUARIO = request.UUID_USUARIO,
+                UUID = request.UUID,
                 PRIMER_NOMBRE = request.PRIMER_NOMBRE,
                 SEGUNDO_NOMBRE = request.SEGUNDO_NOMBRE,
                 TERCER_NOMBER = request.SEGUNDO_NOMBRE,

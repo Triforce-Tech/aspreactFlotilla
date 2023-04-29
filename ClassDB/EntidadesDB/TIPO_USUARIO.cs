@@ -9,7 +9,7 @@ namespace ClassDB.EntidadesDB
     public partial class TipoUsuario
 
     {
-        public string UUID_TIPO_USUARIO { get; set; }
+        public string UUID { get; set; }
         public string UUID_NIVEL { get; set; }
         public string TIPO { get; set; }
         public string DESCRIPCION { get; set; }

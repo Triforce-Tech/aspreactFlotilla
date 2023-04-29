@@ -11,7 +11,7 @@ namespace ClassDB.EntidadesDB
 {
     public partial class Analista
     {
-        public string UUID_ANALISTA { get; set; }
+        public string UUID { get; set; }
         public string UUID_USUARIO { get; set; }
         public string ESTADO { get; set; }
         public DateTime FECHA_ALTA { get; set; }

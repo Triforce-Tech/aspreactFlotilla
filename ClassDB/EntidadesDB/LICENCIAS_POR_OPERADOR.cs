@@ -9,7 +9,7 @@ namespace ClassDB.EntidadesDB
     public partial class LicenciasPorOperador
     {
     
-        public string UUID_LICENCIA { get; set; }
+        public string UUID { get; set; }
         public string UUID_OPERADOR { get; set; }
         public string TIPO { get; set; }
         public string DESCRIPCION { get; set; }

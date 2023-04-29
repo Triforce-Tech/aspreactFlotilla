@@ -10,7 +10,7 @@ namespace ClassDB.EntidadesDB
 {
     public partial class Ruta
     {
-        public string UUID_RUTA { get; set; }
+        public string UUID { get; set; }
         public string DESCRIPCION { get; set; }
         public string COORDENADA_PUNTO_A { get; set; }
         public string COORDENADA_PUNTO_B { get; set; }

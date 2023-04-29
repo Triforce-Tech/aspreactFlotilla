@@ -8,7 +8,7 @@ namespace ClassDB.EntidadesDB
 {
     public partial class Soporte
     {
-        public string UUID_SOPORTE { get; set; }
+        public string UUID { get; set; }
         public string UUID_TICKET { get; set; }
         public DateTime FECHA_ASIGNACION { get; set; }
         public DateTime FECHA_REGISTRO { get; set; }

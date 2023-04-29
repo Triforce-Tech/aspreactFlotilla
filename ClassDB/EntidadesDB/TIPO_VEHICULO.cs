@@ -9,7 +9,7 @@ namespace ClassDB.EntidadesDB
 {
     public partial class TipoVehiculo
     {
-        public string UUID_TIPO_VEHICULO { get; set; }
+        public string UUID { get; set; }
         public string MARCA { get; set; }
         public string MODELO { get; set; }
         public DateTime AÑO { get; set; }
