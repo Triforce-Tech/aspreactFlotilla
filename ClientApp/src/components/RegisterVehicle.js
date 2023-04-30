@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import './styles.css';
+import NavigationBar from './NavigationBar';
+import Form from 'react-bootstrap/Form';
+import ReactDOM from "react-dom/client";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import Button from 'react-bootstrap/Button';
 
 function RegisterVehicle() {
   const [plate, setPlate] = useState('');
@@ -15,61 +23,79 @@ function RegisterVehicle() {
   };
 
   return (
-    <div className="register-container">
+      <div><Container>
       <h1>Registrar Vehiculo</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="plate">Placa:</label>
-        <input
+      <Form.Group className="mb-3" onSubmit={handleSubmit}>
+        <Row>
+        <Col>
+        <Form.Label htmlFor="plate">Placa:</Form.Label>
+        <Form.Control
           type="text"
           id="plate"
           name="plate"
           value={plate}
           onChange={(event) => setPlate(event.target.value)}
         />
-        <label htmlFor="descripcion">Descripcion:</label>
-        <input
+        </Col>
+        <Col>
+        <Form.Label htmlFor="descripcion">Descripcion:</Form.Label>
+        <Form.Control
           type="text"
           id="descripcion"
           name="descripcion"
           value={descripcion}
           onChange={(event) => setDescripcion(event.target.value)}
         />
-        <label htmlFor="km">Kilometraje Actual:</label>
-        <input
+        </Col>
+        <Col>
+        <Form.Label htmlFor="km">Kilometraje Actual:</Form.Label>
+        <Form.Control
           type="text"
           id="km"
           name="km"
           value={km}
           onChange={(event) => setKm(event.target.value)}
         />
-        <label htmlFor="brand">Marca:</label>
-        <input
+        </Col>
+        </Row>
+
+        <Row>
+        <Col>
+        <Form.Label htmlFor="brand">Marca:</Form.Label>
+        <Form.Control
           type="text"
           id="brand"
           name="brand"
           value={brand}
           onChange={(event) => setBrand(event.target.value)}
         />
-        <label htmlFor="model">Modelo:</label>
-        <input
+        </Col>
+        <Col>
+        <Form.Label htmlFor="model">Modelo:</Form.Label>
+        <Form.Control
           type="text"
           id="model"
           name="model"
           value={model}
           onChange={(event) => setModel(event.target.value)}
         />
-        <label htmlFor="year">Año:</label>
-        <input
+        </Col>
+        <Col>
+        <Form.Label htmlFor="year">Año:</Form.Label>
+        <Form.Control
           type="text"
           id="year"
           name="year"
           value={year}
           onChange={(event) => setYear(event.target.value)}
         />
+        </Col>
+        </Row>
         
         <button type="submit">Registrar</button>
-      </form>
-    </div>
+       </Form.Group>
+      </Container>
+      </div>
   );
 }
 

@@ -21,15 +21,15 @@ namespace Flotilla_netCORE.Controllers
 
         //obtener data
         [HttpGet]
-        [Route("vehicle")]
-        public async Task<IActionResult> vehicle()
+        [Route("Vehicle")]
+        public async Task<IActionResult> Vehicle()
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
             List<Vehiculo> vehicle = new List<Vehiculo>();
             //query en sqlkata
 
             Query query = new Query();
-            query.Select("UUID");
+            query.Select("*");
             query.From("Vehiculo");
             //query compilacion
             var sql = execute.ExecuterCompiler(query);
