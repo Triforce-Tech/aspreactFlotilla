@@ -29,8 +29,9 @@ namespace Flotilla_netCORE.Controllers
             //query en sqlkata
 
             Query query = new Query();
-            query.Select("*");
+            query.Select("UUID, DESCRIPCION, UUID_ESTADO");
             query.From("Vehiculo");
+            query.Where("UUID_ESTADO", "=", "51DC9BFF29084843AF4A1A580D2E1234");
             //query compilacion
             var sql = execute.ExecuterCompiler(query);
             //llenado de objeto tipo lista 

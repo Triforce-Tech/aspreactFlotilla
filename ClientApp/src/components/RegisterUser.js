@@ -1,8 +1,15 @@
 /*import logo from './logo.svg';*/
 import { useState, useEffect } from 'react';
+import './styles.css';
 import NavigationBar from './NavigationBar';
+import Form from 'react-bootstrap/Form';
 import ReactDOM from "react-dom/client";
-import { Form, Container, Row, Col, Button } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import Button from 'react-bootstrap/Button';
 
 
 
@@ -211,9 +218,7 @@ function RegisterUser() {
 
                 <Row>
                     <Col>
-                        <Button variant="primary" type="submit">
-                            Registrar Vehiculo
-                        </Button>
+                        <button type="submit">Registrarse</button>
 
                     </Col>
                 </Row>
