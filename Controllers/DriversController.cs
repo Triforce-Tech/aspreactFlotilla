@@ -11,18 +11,10 @@ namespace Flotilla_netCORE.Controllers
     [ApiController]
     public class DriversController : ControllerBase
     {
-
-        private readonly OraConnect _context;
-
-        public DriversController(OraConnect context)
-        {
-            _context = context;
-        }
-
         //obtener data
         [HttpGet]
-        [Route("drivers")]
-        public async Task<IActionResult> drivers()
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
             List<Operador> driver = new List<Operador>();
