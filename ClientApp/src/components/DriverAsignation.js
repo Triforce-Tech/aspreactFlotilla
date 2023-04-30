@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.css';
 import { Form, Container, Row, Col, Button } from 'react-bootstrap';
 
@@ -19,7 +19,7 @@ function DriverAsignation() {
     const [selectedOption, setSelectedOption] = useState('');
 
     useEffect(() => {
-        fetch('/api/vehicle/Vehicle')
+        fetch('/api/vehicle/Lista')
             .then(response => response.json())
             .then(json => setData(json));
     }, []);
@@ -51,10 +51,20 @@ function DriverAsignation() {
         <Form.Label htmlFor="vehicle">Vehiculo:</Form.Label>
 
             <Form.Select value={selectedOption} onChange={(handleSelectChange) => setVehicle(handleSelectChange.target.value)}>
-            <option value="">Seleccione el estado</option>
-                {data.map(user => (
+                  <option value="">Seleccione el vehiculo</option>
+
+
+                  {
+                      (data.length < 1) ?
+                          (
+                      <option value="">No hay data</option>
+
+                      ) : (
+                      data.map(vehicle => (
                     <option key={vehicle.uuid} value={vehicle.uuid}>{vehicle.descripcion}</option>
-                ))}
+
+                  ))
+              )}
             </Form.Select>
 
         <label htmlFor="releasedate">Fecha de alta:</label>

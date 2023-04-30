@@ -12,25 +12,19 @@ namespace Flotilla_netCORE.Controllers
     public class VehicleController : ControllerBase
     {
 
-        private readonly OraConnect _context;
-
-        public VehicleController(OraConnect context)
-        {
-            _context = context;
-        }
-
+       
         //obtener data
         [HttpGet]
-        [Route("Vehicle")]
-        public async Task<IActionResult> Vehicle()
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
             List<Vehiculo> vehicle = new List<Vehiculo>();
             //query en sqlkata
 
             Query query = new Query();
-            query.Select("UUID, DESCRIPCION, UUID_ESTADO");
-            query.From("Vehiculo");
+            query.Select("UUID").Select("DESCRIPCION").Select("UUID_ESTADO");
+            query.From("VEHICULO");
             query.Where("UUID_ESTADO", "=", "51DC9BFF29084843AF4A1A580D2E1234");
             //query compilacion
             var sql = execute.ExecuterCompiler(query);
