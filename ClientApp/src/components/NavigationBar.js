@@ -1,5 +1,6 @@
 import { Container } from 'react-bootstrap';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+
 //import Navbar from 'react-bootstrap/Navbar';
 import RegisterVehicle from './RegisterVehicle';
 //import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -16,6 +17,7 @@ import NewOrder from './NewOrder';
 import ViewOrder from './ViewOrder';
 import DashboardInicio from './DashboardInicio';
 import * as React from 'react';
+import Home from './Home';
 
 function NavigationBar() {
     return (
@@ -25,7 +27,8 @@ function NavigationBar() {
                     <Container>
                         <Navbar.Brand as={Link} to={"/"}>Logistics</Navbar.Brand>
                         <Nav className="justify-content-end">
-                            <Nav.Link as={Link} to={"/"}>Inicio</Nav.Link>
+                            <Nav.Link as={Link} to={"/home"}>Home</Nav.Link>
+                            <Nav.Link as={Link} to={"/"}>Login</Nav.Link>
                             <Nav.Link as={Link} to={"/registervehicle"}>Vehiculos</Nav.Link>
                             <Nav.Link as={Link} to={"/driverasignation"}>Pilotos</Nav.Link>
                             <NavDropdown title="Ordenes" id="basic-nav-dropdown">
@@ -43,7 +46,7 @@ function NavigationBar() {
                 <Routes>
                     <Route path='/' element={<Login />}>
                     </Route>
-                    <Route path='/home' element={<DashboardInicio />}>
+                    <Route path='/home' element={<Home />}>
                     </Route>
                     <Route path='/registervehicle' element={<RegisterVehicle />}>
                     </Route>
