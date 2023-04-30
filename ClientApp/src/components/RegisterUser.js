@@ -7,9 +7,10 @@ import ReactDOM from "react-dom/client";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Nav from 'react-bootstrap/Nav';
+
 
 import axios from 'axios';
 
@@ -46,28 +47,21 @@ function RegisterUser() {
     function handleSelectChange(event) {
         setSelectedOption(event.target.value);
     }
-    function SaveButton() {
+  
 
 
         function handleSaveClick() {
             //console.log(`Saving ${field1} and ${field2}`);
 
             // Hacer una solicitud HTTP para guardar los datos
-            axios.post('/api/usuario/Guardar', {
-                PRIMER_NOMBRE: PRIMER_NOMBRE,
-                SEGUNDO_NOMBRE: SEGUNDO_NOMBRE,
-                PRIMER_APELLIDO: PRIMER_APELLIDO,
-                SEGUNDO_APELLIDO: SEGUNDO_APELLIDO,
-                DPI: DPI,
-                address: address,
-                phonenumber: phonenumber,
-                company: company,
-                email: email,
+            axios.post('/api/usuario/Guardarusuario', {
+                uuid: "",
+                usuario: username,
                 password: password,
-                passwordConfirm: passwordConfirm,
-                usertype: usertype
+                UUID_ESTADO: ""
 
             })
+           
                 .then(response => {
                     console.log('Data saved successfully!');
                     console.log(response.data);
@@ -77,8 +71,10 @@ function RegisterUser() {
                     console.error(error);
                 });
         }
-    }
+  
+
    
+    
 
     return (
 
@@ -89,8 +85,7 @@ function RegisterUser() {
             <h1>Registrarse</h1>
 
 
-            
-
+           
             <Form.Group className="mb-3" onSubmit={handleSubmit}>
                  
 
@@ -248,7 +243,7 @@ function RegisterUser() {
 
                 <Row>
                     <Col>
-                        <button type="submit">Registrarse</button>
+                        <button  type="submit" onClick={handleSaveClick}>Registrarse</button>
 
                     </Col>
                 </Row>
