@@ -10,8 +10,9 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
-
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 
 
@@ -34,7 +35,7 @@ function RegisterUser() {
         event.preventDefault();
         // Aquí podrías enviar los datos del formulario al servidor
     };
-
+    
     const [data, setData] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
 
@@ -52,27 +53,76 @@ function RegisterUser() {
 
         function handleSaveClick() {
             //console.log(`Saving ${field1} and ${field2}`);
-
+            saveusuario();
+         
             // Hacer una solicitud HTTP para guardar los datos
-            axios.post('/api/usuario/Guardarusuario', {
+           
+    }
+
+    function savepersona() {
+        const fechaEspecifica = new Date('2022-05-01T12:00:00Z');
+
+        axios.post('/api/persona/Guardarper', {
+            uuid: "",
+            primer_nombre: PRIMER_NOMBRE,
+            segundo_nombre: SEGUNDO_NOMBRE,
+            tercer_nombre: "",
+            primer_apellido: PRIMER_APELLIDO,
+            segundo_apellido: SEGUNDO_APELLIDO,
+            dpi: DPI,
+            direccion: address,
+            telefono: phonenumber,
+            correo: email,
+            empresa: company,
+            fecha_ingreso: fechaEspecifica,
+            fecha_modificacion: fechaEspecifica,
+            uuid_estado: "",
+            uuid_tipo_usuario: selectedOption,
+            uuid_user_session: "",
+            user_name: username,
+
+        })
+            .then(response => {
+                console.log('Data saved successfully!');
+                console.log(response.data);
+                toast.success('¡Operación exitosa!', {
+                    position: toast.POSITION.TOP_CENTER
+                });
+            })
+            .catch(error => {
+                console.error('Error saving data:');
+                console.error(error);
+            });
+    }
+
+    function saveusuario() {
+
+       
+
+         axios.post('/api/usuario/Guardarusuario', {
                 uuid: "",
                 usuario: username,
                 password: password,
                 UUID_ESTADO: ""
 
             })
-           
+            
                 .then(response => {
                     console.log('Data saved successfully!');
                     console.log(response.data);
+                    savepersona();
+                    toast.success('¡Operación exitosa!', {
+                        position: toast.POSITION.TOP_CENTER
+                    });
                 })
                 .catch(error => {
                     console.error('Error saving data:');
                     console.error(error);
                 });
-        }
-  
-
+    }
+    const [show, setShow] = useState(false);
+   
+    
    
     
 
@@ -157,7 +207,7 @@ function RegisterUser() {
                             value={email}
                             onChange={(event) => setEmail(event.target.value)}
                         /></Col>
-                    <Col>  <Form.Label htmlFor="email">DPI:</Form.Label>
+                    <Col>  <Form.Label htmlFor="DPI">DPI:</Form.Label>
                         <Form.Control
                             type="DPI"
                             id="DPI"
@@ -243,7 +293,27 @@ function RegisterUser() {
 
                 <Row>
                     <Col>
-                        <button  type="submit" onClick={handleSaveClick}>Registrarse</button>
+
+                        <>
+                            <Alert show={show}  variant="success">
+                                <Alert.Heading>Success!</Alert.Heading>
+                                <p>
+                                    
+                                </p>
+                                <hr />
+                                <div className="d-flex justify-content-end">
+                                    <button onClick={() => setShow(false)} variant="outline-success">
+                                        Close me y'all!
+                                    </button>
+                                </div>
+                            </Alert>
+
+                            {!show && <Button onClick={() => setShow(true)} onClick={handleSaveClick}>Registrarse</Button>}
+                        </>
+
+
+
+                        {/*<button  type="submit" onClick={handleSaveClick}>Registrarse</button>*/}
 
                     </Col>
                 </Row>
