@@ -76,26 +76,79 @@ namespace ClassDB.ConnectDB
 
         }
 
-        //public bool ExecuterOracle(string sqlQuery)
-        //{
-        //    try
-        //    {
-        //        OracleCommand ora_Command = new OracleCommand(sqlQuery, connect.OracleContext);
-        //        ora_Command.CommandType = CommandType.Text;
-        //        ora_Command.CommandText = sqlQuery;
-
-        //        ora_Command.ExecuteNonQuery();
-        //        return true;
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Error : * ---- " + sqlQuery + " ---- *" + ex.Message);
-        //        return false;
-        //    }
+        public bool ExecuterOracle(string sqlQuery)
+        {
+            try
+            {
+                var STR = Environment.GetEnvironmentVariable("STR");
 
 
-        //}
+                Console.WriteLine(STR);
+
+
+                ora.ConnectToDatabase(STR);
+
+                OracleCommand ora_Command = new OracleCommand(sqlQuery, ora.OracleContext);
+                ora_Command.CommandType = CommandType.Text;
+                ora_Command.CommandText = sqlQuery;
+
+                ora_Command.ExecuteNonQuery();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error : * ---- " + sqlQuery + " ---- *" + ex.Message);
+                return false;
+            }
+
+
+        }
+
+        public bool ExecuteDecider(string Query)
+        {
+
+            try
+            {
+                var DbmsProvider = Environment.GetEnvironmentVariable("PROVIDER");
+
+                if (DbmsProvider == null)
+                {
+                    return false;
+                }
+
+                switch (DbmsProvider)
+                {
+                    case "oracle":
+                        {
+                            var r = ExecuterOracle(Query);
+                            return r;
+                        }
+                    case "sqlserver":
+                        {
+
+                            var r = ExecuterOracle(Query);
+                            return r;
+                        }
+
+                        case "postgresql":
+                        {
+                            var r = ExecuterOracle(Query);
+                            return r;
+                        }
+
+                }
+
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
 
         public bool ExecuterSQL(string sqlQuery)
         {
@@ -115,7 +168,7 @@ namespace ClassDB.ConnectDB
                 if (ora.OracleContext.State == ConnectionState.Closed)
                 {
                     var STR = Environment.GetEnvironmentVariable("STR");
-                    
+
 
                     Console.WriteLine(STR);
 
