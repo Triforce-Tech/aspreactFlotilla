@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,6 +7,26 @@ import Container from 'react-bootstrap/Container';
 
 
 function NewOrder() {
+
+    const [data, setData] = useState([]);
+    const [selectedOption, setSelectedOption] = useState('');
+
+    useEffect(() => {
+        fetch('/api/vehicle/Lista')
+            .then(response => response.json())
+            .then(json => setData(json));
+    }, []);
+
+    useEffect(() => {
+        fetch('/api/operador/Lista')
+            .then(response => response.json())
+            .then(json => setData(json));
+    }, []);
+
+    function handleSelectChange(event) {
+        setSelectedOption(event.target.value);
+    }
+
     return (
         <Container>
             <h1>Nueva Orden</h1>
@@ -15,7 +35,7 @@ function NewOrder() {
                     <Col>
                         <Form.Group className="mb-3">
                             <Form.Label>Seleccione una fecha</Form.Label>
-                            <MyDatePicker></MyDatePicker>
+                            < MyDatePicker / >
                         </Form.Group>
                         <FormGroup className="mb-3">
                             <Form.Label>Dirección de recolección</Form.Label>
@@ -29,26 +49,44 @@ function NewOrder() {
 
                     <Col>
                         <Form.Group className="mb-3">
-                            <Form.Label>Vehiculo</Form.Label>
-                            <Form.Select>
-                                <option>Vehiculo 1</option>
-                                <option>Vehiculo 2</option>
-                                <option>Vehiculo 3</option>
-                                <option>Vehiculo 4</option>
-                                <option>Vehiculo 5</option>
-                            </Form.Select>
+                        <Form.Label>Piloto</Form.Label>
+                            <Form.Select value={selectedOption} onChange={(handleSelectChange) => setDriver(handleSelectChange.target.value)}>
+                                <option value="">Seleccione el piloto</option>
+
+
+                                {
+                                    (data.length < 1) ?
+                                        (
+                                            <option value="">No hay data</option>
+
+                                        ) : (
+                                            data.map(vehicle => (
+                                                <option key={driver.uuid} value={driver.uuid}>{driver.descripcion}</option>
+
+                                            ))
+                                        )}
+                            </Form.Select>    
                         </Form.Group>
                     </Col>
 
                     <Col>
                         <Form.Group className="mb-3">
                             <Form.Label>Piloto</Form.Label>
-                            <Form.Select>
-                                <option>Piloto 1</option>
-                                <option>Piloto 2</option>
-                                <option>Piloto 3</option>
-                                <option>Piloto 4</option>
-                                <option>Piloto 5</option>
+                            <Form.Select value={selectedOption} onChange={(handleSelectChange) => setVehicle(handleSelectChange.target.value)}>
+                                <option value="">Seleccione el vehiculo</option>
+
+
+                                {
+                                    (data.length < 1) ?
+                                        (
+                                            <option value="">No hay data</option>
+
+                                        ) : (
+                                            data.map(vehicle => (
+                                                <option key={vehicle.uuid} value={vehicle.uuid}>{vehicle.descripcion}</option>
+
+                                            ))
+                                        )}
                             </Form.Select>
                         </Form.Group>
                     </Col>

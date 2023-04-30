@@ -28,6 +28,7 @@ const context = [
     "/api/usuario",
     "/api/vehicle",
     "/api/registro",
+    "/api/persona",
 ];
 
 

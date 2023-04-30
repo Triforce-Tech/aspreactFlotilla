@@ -11,7 +11,7 @@ namespace ClassDB.EntidadesDB
         public string UUID { get; set; }
         public string PRIMER_NOMBRE { get; set; }
         public string SEGUNDO_NOMBRE { get; set; }
-        public string TERCER_NOMBER { get; set; }
+        public string TERCER_NOMBRE { get; set; }
         public string PRIMER_APELLIDO { get; set; }
         public string SEGUNDO_APELLIDO { get; set; }
         public int DPI { get; set; }
@@ -24,6 +24,6 @@ namespace ClassDB.EntidadesDB
         public string UUID_ESTADO { get; set; }
         public string UUID_TIPO_USUARIO { get; set; }
         public string UUID_USER_SESSION { get; set; }
-   
+        public string USER_NAME { get; set; }
     }
 }

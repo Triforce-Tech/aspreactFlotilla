@@ -202,7 +202,19 @@ namespace ClassDB.ConnectDB
 
                         Console.WriteLine("success " + cmdQuery.ToString());
                     }
+                }else
+                {
+                    OracleCommand ora_Command = new OracleCommand(cmdQuery, ora.OracleContext);
+                    ora_Command.CommandType = CommandType.Text;
+                    using (OracleDataReader reader = ora_Command.ExecuteReader())
+                    {
+                        action(reader);
+                    }
+                    string log = "success " + cmdQuery.ToString();
+
+                    Console.WriteLine("success " + cmdQuery.ToString());
                 }
+
             }
 
             catch (Exception ex)

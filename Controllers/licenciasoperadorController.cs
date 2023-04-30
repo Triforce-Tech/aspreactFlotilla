@@ -11,26 +11,18 @@ namespace Flotilla_netCORE.Controllers
     [ApiController]
     public class licenciasoperadorController : ControllerBase
     {
-
-        private readonly OraConnect _context;
-
-        public licenciasoperadorController(OraConnect context)
-        {
-            _context = context;
-        }
-
         //obtener data
         [HttpGet]
-        [Route("licenciasoc")]
-        public async Task<IActionResult> licenciasoc()
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
             List<LicenciasPorOperador> licenceop = new List<LicenciasPorOperador>();
             //query en sqlkata
 
             Query query = new Query();
-            query.Select("UUID");
-            query.From("LicenciasPorOperador");
+            query.Select("UUID").Select("TIPO").Select("DESCRIPCION");
+            query.From("LICENCIAS_POR_OPERADOR");
             //query compilacion
             var sql = execute.ExecuterCompiler(query);
             //llenado de objeto tipo lista 

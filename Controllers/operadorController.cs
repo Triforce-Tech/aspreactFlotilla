@@ -21,8 +21,8 @@ namespace Flotilla_netCORE.Controllers
 
         //obtener data
         [HttpGet]
-        [Route("operate")]
-        public async Task<IActionResult> operate()
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
             List<Operador> OP = new List<Operador>();
