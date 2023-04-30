@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 //import Button from 'react-bootstrap/Button';
 //import Form from 'react-bootstrap/Form';
 import NewOrder from './NewOrder';
-import { Table, Button, Form  } from 'reactstrap'
+import { Table, Button, Form  } from 'react-bootstrap'
 
 
 import {
