@@ -24,6 +24,12 @@ function DriverAsignation() {
             .then(json => setData(json));
     }, []);
 
+    useEffect(() => {
+        fetch('/api/licenciasoperador/Lista')
+            .then(response => response.json())
+            .then(json => setData(json));
+    }, []);
+
     function handleSelectChange(event) {
         setSelectedOption(event.target.value);
     }
@@ -32,6 +38,8 @@ function DriverAsignation() {
       <div><Container>
       <h1>Registrar Piloto</h1>
       <Form.Group className="mb-3" onSubmit={handleSubmit}>
+      <Row>
+      <Col>
         <Form.Label htmlFor="drivername">Nombre del Piloto:</Form.Label>
         <Form.Control
           type="text"
@@ -40,14 +48,28 @@ function DriverAsignation() {
           value={drivername}
           onChange={(event) => setDrivername(event.target.value)}
         />
+        </Col>
+        <Col>
         <Form.Label htmlFor="licensetype">Tipo de Licencia:</Form.Label>
-        <select name ="licensetype">
-          <option value={licensetype}>Licencia tipo 1</option>
-          <option value={licensetype}>Licencia tipo 2</option>
-          <option value={licensetype}>Licencia tipo 3</option>
-          onChange={(event) => setLicensetype(event.target.value)}
-        </select>
-        
+            <Form.Select value={selectedOption} onChange={(handleSelectChange) => setLicensetype(handleSelectChange.target.value)}>
+                <option value="">Seleccione la licencia</option>
+
+
+                    {
+                        (data.length < 1) ?
+                            (
+                                <option value="">No hay data</option>
+
+                            ) : (
+                                data.map(lycensetype=> (
+                                    <option key={lycensetype.uuid} value={lycensetype.uuid}>{lycensetype.descripcion}</option>
+
+                                ))
+                    )}
+            </Form.Select>
+        </Col>
+
+        <Col>
         <Form.Label htmlFor="vehicle">Vehiculo:</Form.Label>
 
             <Form.Select value={selectedOption} onChange={(handleSelectChange) => setVehicle(handleSelectChange.target.value)}>
@@ -66,31 +88,40 @@ function DriverAsignation() {
                   ))
               )}
             </Form.Select>
-
-        <label htmlFor="releasedate">Fecha de alta:</label>
-        <input
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+        <Form.Label htmlFor="releasedate">Fecha de alta:</Form.Label>
+        <Form.Control
           type="text"
           id="releasedate"
           name="releasedate"
           value={releasedate}
           onChange={(event) => setReleasedate(event.target.value)}
         />
-        <label htmlFor="licensestartdate">Fecha de emision de la licencia:</label>
-        <input
+        </Col>
+        <Col>
+        <Form.Label htmlFor="licensestartdate">Fecha de emision de la licencia:</Form.Label>
+        <Form.Control
           type="text"
           id="licensestartdate"
           name="licensestartdate"
           value={licensestartdate}
           onChange={(event) => setLicensestartdate(event.target.value)}
         />
-        <label htmlFor="licenseenddate">Fecha de caducidad de la licencia:</label>
-        <input
+        </Col>
+        <Col>
+        <Form.Label htmlFor="licenseenddate">Fecha de caducidad de la licencia:</Form.Label>
+        <Form.Control
           type="text"
           id="licenseenddate"
           name="licenseenddate"
           value={licenseenddate}
           onChange={(event) => setLicenseenddate(event.target.value)}
         />
+        </Col>
+        </Row>
         
         <button type="submit">Registrar</button>
       </Form.Group>
