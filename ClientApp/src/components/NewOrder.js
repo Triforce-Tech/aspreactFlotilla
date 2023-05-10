@@ -7,9 +7,12 @@ import Container from 'react-bootstrap/Container';
 
 
 function NewOrder() {
-
+    const [shipfrom, setShipfrom] = useState('');
+    const [shipto, setShipto] = useState('');
     const [data, setData] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
+    const [vehicle, setVehicle] = useState('');
+    const [driver, setDriver] = useState('');
 
     useEffect(() => {
         fetch('/api/vehicle/Lista')
@@ -39,11 +42,23 @@ function NewOrder() {
                         </Form.Group>
                         <FormGroup className="mb-3">
                             <Form.Label>Dirección de recolección</Form.Label>
-                            <FormControl type="text" />
+                            <FormControl
+                                type="text"
+                                id="shipfrom"
+                                name="shipfrom"
+                                value={shipfrom}
+                                onChange={(event) => setShipfrom(event.target.value)}
+                            />
                         </FormGroup>
                         <FormGroup controlId="formBasicPassword">
                             <Form.Label>Dirección de entrega</Form.Label>
-                            <FormControl type="text" />
+                            <FormControl
+                                type="text"
+                                id="shipto"
+                                name="shipto"
+                                value={shipto}
+                                onChange={(event) => setShipto(event.target.value)}
+                            />
                         </FormGroup>
                     </Col>
 

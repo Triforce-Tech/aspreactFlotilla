@@ -49,6 +49,33 @@ namespace Flotilla_netCORE.Controllers
 
         }
 
+        [HttpPost]
+        [Route("Guardar")]
+        public async Task<IActionResult> Guardar([FromBody] Analista request)
+        {
+
+            var query = new Query("Analista").AsInsert(new
+            {
+                UUID = request.UUID,
+                UUID_USUARIO = request.UUID_USUARIO,
+                ESTADO = request.ESTADO,
+                FECHA_ALTA = new DateTime(2009, 8, 4),
+                FECHA_BAJA = new DateTime(2009, 8, 4),
+                FECHA_MODIFICACION = new DateTime(2009, 8, 4),
+                TICKETS_RESUELTOS = request.TICKETS_RESUELTOS,
+                TICKETS_EXITOSOS = request.TICKETS_EXITOSOS,
+                TICKETS_FALLO = request.TICKETS_FALLO,
+                TICKETS_CANCELA = request.TICKETS_CANCELA
+            });
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+            var sql = execute.ExecuterCompiler(query);
+
+            //var resp = execute.ExecuterOracle(sql);
+            var resp = "";
+            return StatusCode(StatusCodes.Status200OK, resp);
+
+        }
+
 
     }
 }
