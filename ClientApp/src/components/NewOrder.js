@@ -4,6 +4,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MyDatePicker from './MyDatePicker';
 import Container from 'react-bootstrap/Container';
+import DatePicker from 'react-datepicker';
+import Card from 'react-bootstrap/Card';
+import Nav from 'react-bootstrap/Nav';
 
 
 function NewOrder() {
@@ -13,6 +16,7 @@ function NewOrder() {
     const [selectedOption, setSelectedOption] = useState('');
     const [vehicle, setVehicle] = useState('');
     const [driver, setDriver] = useState('');
+    const [selectedDate, setSelectedDate] = useState(null);
 
     useEffect(() => {
         fetch('/api/vehicle/Lista')
@@ -32,13 +36,35 @@ function NewOrder() {
 
     return (
         <Container>
-            <h1>Nueva Orden</h1>
+        <h1>Nueva Orden</h1>
+        <Card>
+                <Card.Header>
+                    <Nav variant="tabs" defaultActiveKey="#first">
+                        <Nav.Item>
+                            <Nav.Link href="#first">Active</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="#link">Link</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="#disabled" disabled>
+                                Disabled
+                            </Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                </Card.Header>
+            <Card.Body>
             <Form>
                 <Row>
                     <Col>
                         <Form.Group className="mb-3">
-                            <Form.Label>Seleccione una fecha</Form.Label>
-                            < MyDatePicker / >
+                            <Form.Label>Seleccione la fecha de recolección</Form.Label>
+                            < DatePicker
+                                selected={selectedDate}
+                                onChange={date => setSelectedDate(date)}
+                                dateFormat="dd-MM-yyyy"
+                                placeholderText="Seleccione una fecha"
+                            />
                         </Form.Group>
                         <FormGroup className="mb-3">
                             <Form.Label>Dirección de recolección</Form.Label>
@@ -118,6 +144,8 @@ function NewOrder() {
                 </Button>
 
             </Form>
+            </Card.Body>
+        </Card>
         </Container>
     );
 }
