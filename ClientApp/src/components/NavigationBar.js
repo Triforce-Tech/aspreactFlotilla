@@ -18,6 +18,7 @@ import ViewOrder from './ViewOrder';
 import DashboardInicio from './DashboardInicio';
 import * as React from 'react';
 import Home from './Home';
+import FillDetails from './FillDetails';
 
 function NavigationBar() {
     return (
@@ -44,7 +45,7 @@ function NavigationBar() {
             </>
             <>
                 <Routes>
-                    <Route path='/' element={<Login />}>
+                    <Route path='/' element={<Login />} name="Login" >
                     </Route>
                     <Route path='/home' element={<Home />}>
                     </Route>
