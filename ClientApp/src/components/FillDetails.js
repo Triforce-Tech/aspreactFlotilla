@@ -14,6 +14,7 @@ function FillDetails() {
     const [selectedOption, setSelectedOption] = useState('');
     const [vehicle, setVehicle] = useState('');
     const [driver, setDriver] = useState('');
+    const [description, setDescription] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
 
     useEffect(() => {
@@ -48,6 +49,8 @@ function FillDetails() {
                                 placeholderText="Seleccione una fecha"
                             />
                         </Form.Group>
+                    </Col>
+                    <Col>
                         <FormGroup className="mb-3">
                             <Form.Label>Dirección de recolección</Form.Label>
                             <FormControl
@@ -58,7 +61,9 @@ function FillDetails() {
                                 onChange={(event) => setShipfrom(event.target.value)}
                             />
                         </FormGroup>
-                        <FormGroup controlId="formBasicPassword">
+                    </Col>
+                    <Col>
+                        <FormGroup className="mb-3">
                             <Form.Label>Dirección de entrega</Form.Label>
                             <FormControl
                                 type="text"
@@ -69,6 +74,8 @@ function FillDetails() {
                             />
                         </FormGroup>
                     </Col>
+                </Row>
+                <Row>
 
                     <Col>
                         <Form.Group className="mb-3">
@@ -89,12 +96,13 @@ function FillDetails() {
                                             ))
                                         )}  
                             </Form.Select>
+                        
                         </Form.Group>
                     </Col>
 
                     <Col>
                         <Form.Group className="mb-3">
-                            <Form.Label>Piloto</Form.Label>
+                            <Form.Label>Vehiculo</Form.Label>
                             <Form.Select value={selectedOption} onChange={(handleSelectChange) => setVehicle(handleSelectChange.target.value)}>
                                 <option value="">Seleccione el vehiculo</option>
 
@@ -113,17 +121,26 @@ function FillDetails() {
                             </Form.Select>
                         </Form.Group>
                     </Col>
+
+                    <Col>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Descripcion</Form.Label>
+                            <FormControl
+                                type="text"
+                                id="description"
+                                name="description"
+                                value={description}
+                                onChange={(event) => setDescription(event.target.value)}
+                            />
+                        </Form.Group>
+                    </Col>
+
                 </Row>
 
-                <Col>
-
-                </Col>
 
 
 
-                <Button variant="primary" type="submit">
-                    Registrar Orden
-                </Button>
+                
 
             </Form>
 

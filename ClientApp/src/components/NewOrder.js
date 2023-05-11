@@ -18,7 +18,12 @@ import RegisterUser from './RegisterUser';
 
 
 function NewOrder() {
-    var caso;
+    const [activeTab, setActiveTab] = useState('filldetails');
+
+    const handleNavClick = (tab) => {
+        setActiveTab(tab);
+    };
+
 
     return (
 
@@ -26,27 +31,62 @@ function NewOrder() {
         <h1>Nueva Orden</h1>
         <Card>
                 <Card.Header>
-                    <Nav variant="tabs" defaultActiveKey="#first">
+                    <Nav variant="tabs" defaultActiveKey="neworder">
                         <Nav.Item>
-                            <Nav.Link href="#first">Active</Nav.Link>
+                            <Nav.Link
+                                active={activeTab === 'filldetails'}
+                                onClick={() => handleNavClick('filldetails')}
+                            >Detalles</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="#link">Link</Nav.Link>
+                            <Nav.Link
+                                active={activeTab === 'mapshipfrom'}
+                                onClick={() => handleNavClick('mapshipfrom')}
+                            >Seleccione punto de recoleccion</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="#disabled" disabled>
-                                Disabled
+                            <Nav.Link
+                                active={activeTab === 'mapshipto'}
+                                onClick={() => handleNavClick('mapshipto')}
+                            >
+                                Seleccione punto de entrega
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </Card.Header>
                 <Card.Body>
 
-                    <FillDetails />
+                    {activeTab === 'filldetails' && (
+                        <>
+                            <Card.Title>Detalle</Card.Title>
+                            <Card.Text><FillDetails /></Card.Text>
+                            <Button variant="primary" onClick={() => handleNavClick('mapshipfrom')}>
+                                Siguiente
+                            </Button>
+                        </>
+                    )}
+                    {activeTab === 'mapshipfrom' && (
+                        <>
+                            <Card.Title>Acerca de</Card.Title>
+                            <Card.Text>Contenido de la pestaña Acerca de.</Card.Text>
+                            <Button variant="primary" onClick={() => handleNavClick('mapshipto')}>
+                                Siguiente
+                            </Button>
+                        </>
+                    )}
+                    {activeTab === 'mapshipto' && (
+                        <>
+                            <Card.Title>Contacto</Card.Title>
+                            <Card.Text>Contenido de la pestaña Contacto.</Card.Text>
+                            <Button variant="success" onClick={() => handleNavClick('filldetails')}>
+                                Registrar Orden
+                            </Button>
+                        </>
+                    )}
                                  
                 </Card.Body>
 
-                
+
                  
         </Card>
         </Container>
