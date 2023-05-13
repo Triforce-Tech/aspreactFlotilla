@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import MyDatePicker from './MyDatePicker';
+import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import DatePicker from 'react-datepicker';
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
-import {
-    BrowserRouter as Router,
-    Link,
-    Routes,
-    Route,
-} from "react-router-dom";
 import FillDetails from './FillDetails';
 import ShipFrom from './ShipFrom';
+import ShipTo from './ShipTo';
 
 
 function NewOrder() {
@@ -77,7 +68,7 @@ function NewOrder() {
                     {activeTab === 'mapshipto' && (
                         <>
                             <Card.Title>Contacto</Card.Title>
-                            <Card.Text>Contenido de la pestaña Contacto.</Card.Text>
+                            <Card.Text><ShipTo/></Card.Text>
                             <Button variant="success" onClick={() => handleNavClick('filldetails')}>
                                 Registrar Orden
                             </Button>
