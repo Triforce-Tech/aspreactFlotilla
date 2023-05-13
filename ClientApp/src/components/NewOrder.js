@@ -14,7 +14,7 @@ import {
     Route,
 } from "react-router-dom";
 import FillDetails from './FillDetails';
-import RegisterUser from './RegisterUser';
+import ShipFrom from './ShipFrom';
 
 
 function NewOrder() {
@@ -68,7 +68,7 @@ function NewOrder() {
                     {activeTab === 'mapshipfrom' && (
                         <>
                             <Card.Title>Acerca de</Card.Title>
-                            <Card.Text>Contenido de la pestaña Acerca de.</Card.Text>
+                            <Card.Text><ShipFrom/></Card.Text>
                             <Button variant="primary" onClick={() => handleNavClick('mapshipto')}>
                                 Siguiente
                             </Button>
