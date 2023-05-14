@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Button from 'react-bootstrap/Button';
+import { useSession } from 'react-session';
 
 function RegisterVehicle() {
   const [plate, setPlate] = useState('');
@@ -16,6 +17,7 @@ function RegisterVehicle() {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [year, setYear] = useState('');
+   
 
   const handleSubmit = (event) => {
     event.preventDefault();

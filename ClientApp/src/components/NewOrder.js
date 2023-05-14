@@ -5,11 +5,13 @@ import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
 import FillDetails from './FillDetails';
 import ShipFrom from './ShipFrom';
+import { useSession } from 'react-session';
 import ShipTo from './ShipTo';
 
 
 function NewOrder() {
     const [activeTab, setActiveTab] = useState('filldetails');
+     
 
     const handleNavClick = (tab) => {
         setActiveTab(tab);

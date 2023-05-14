@@ -1,10 +1,11 @@
-﻿
+﻿import { useSession } from 'react-session';
 
 import './styles.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const getestado = ({ data }) => 
-    {
+{
+     
 
         return (
             <Dropdown>

@@ -14,9 +14,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
+import { useSession } from 'react-session';
 
 
 function RegisterUser() {
+
+     
     const [username, setUsername] = useState('');
     const [PRIMER_NOMBRE, setPRIMER_NOMBRE] = useState('');
     const [SEGUNDO_NOMBRE, setSEGUNDO_NOMBRE] = useState('');

@@ -36,15 +36,18 @@ namespace Flotilla_netCORE.Controllers
                 users = DataReaderMapper<UserSession>.MapToObject(reader);
             });
 
-
+            
             if (users != null)
             {
-                return StatusCode(StatusCodes.Status200OK, users);
+                HttpContext.Session.SetString("userSession", users.UUID);
+                //return StatusCode(StatusCodes.Status200OK, users);
+                return Redirect("/home");
 
             }
             else
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, users);
+                //return StatusCode(StatusCodes.Status500InternalServerError, users);
+                return Redirect("/home");
             }
 
 
