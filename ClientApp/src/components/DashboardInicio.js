@@ -1,7 +1,10 @@
 import React from "react";
 import { Container, Row, Col, Card, Button } from "reactstrap";
+import { useSession } from 'react-session';
 
 function DashboardInicio() {
+    
+
   return (
     <Container fluid>
       <Row>

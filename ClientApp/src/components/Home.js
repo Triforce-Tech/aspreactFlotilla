@@ -9,17 +9,20 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Carousel from 'react-bootstrap/Carousel';
+import { useSession } from 'react-session';
 
 
 
 function HOME() {
+
+    
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // Aquí podrías enviar los datos del formulario al servidor
     };
  
-
+     
 
     return (
 

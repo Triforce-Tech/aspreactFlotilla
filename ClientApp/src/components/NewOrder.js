@@ -5,22 +5,43 @@ import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
 import FillDetails from './FillDetails';
 import ShipFrom from './ShipFrom';
+import { useSession } from 'react-session';
 import ShipTo from './ShipTo';
+
+
+
 
 
 function NewOrder() {
     const [activeTab, setActiveTab] = useState('filldetails');
 
+
     const handleNavClick = (tab) => {
         setActiveTab(tab);
     };
 
+    const [data, setData] = useState([null]);
 
+    useEffect(() => {
+        fetch('/api/session/consultasession')
+            .then(response => response.json())
+            .then(json => setData(json));
+    }, []);
+    var mostrarContenido = false;
+
+    if (data.length === 2) {
+        mostrarContenido = true;
+    }
     return (
 
+
+
         <Container>
-        <h1>Nueva Orden</h1>
-        <Card>
+
+            {mostrarContenido ? (
+                <Container>
+                 <h1>Nueva Orden</h1>
+                 <Card>
                 <Card.Header>
                     <Nav variant="tabs" defaultActiveKey="neworder">
                         <Nav.Item>
@@ -81,7 +102,16 @@ function NewOrder() {
                  
         </Card>
         </Container>
-        
+            ) : (
+
+                <p></p>
+            )
+            } 
+
+
+        </Container>
+
+
     );
 }
 
