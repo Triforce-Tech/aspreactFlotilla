@@ -11,71 +11,86 @@ namespace Flotilla_netCORE.Controllers
     [ApiController]
     public class AnalistaController : Controller
     {
-         private readonly OraConnect _context;
-
-        public AnalistaController(OraConnect context)
-        {
-            _context = context;
-        }
-
-        //obtener data
-        [HttpGet]
-        [Route("analyst")]
-        public async Task<IActionResult> analyst()
+       [HttpPost]
+       [Route("guardaAnalista")]
+       public async Task<IActionResult> guardaAnalista([FromBody] Analista request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<Analista> analista = new List<Analista>();
-            //query en sqlkata
+
+            var query = new Query("ANALISTA").AsInsert(new
+            {
+
+            UUID_USUARIO = request.UUID_USUARIO;
+            ESTADO = request.ESTADO;
+            FECHA_ALTA = request.FECHA_ALTA;
+            FECHA_BAJA = request.FECHA_BAJA;
+            TICKETS_RESUELTOS = request.TICKETS_RESUELTOS;
+            TICKETS_EXITOSOS = TICKETS_EXITOSOS;
+            TICKETS_FALLO = request.TICKETS_FALLO;
+            TICKETS_CANCELA = request.TICKETS_CANCELA;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
+
+        }
+
+        [HttpGet]
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+            List<Analista> listaAnalista = new List<Analista>();
 
             Query query = new Query();
-            query.Select("UUID");
-            query.From("Analista");
-            //query compilacion
+            query.Select(
+            "UUID_USUARIO",
+            "ESTADO",
+            "FECHA_ALTA",
+            "FECHA_BAJA",
+            "TICKETS_RESUELTOS",
+            "TICKETS_EXITOSOS",
+            "TICKETS_FALLO",
+            "TICKETS_CANCELA";
+            )
+            query.From("ANALISTA");
+
             var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
+
             execute.DataReader(sql.ToString(), reader =>
             {
-                analista = DataReaderMapper<Analista>.MapToList(reader);
+                listaAnalista = DataReaderMapper<Analista>.MapToList(reader);
             });
-            
-            // llenado de objeto tipo clase
-            //UserSession users = new UserSession();
-            //execute.DataReader(sql.ToString(), reader =>
-            //{
-            //    users = DataReaderMapper<UserSession>.MapToObject(reader);
-            //});
 
-            return StatusCode(StatusCodes.Status200OK, analista);
-
+            return StatusCode(StatusCodes.Status200OK, listaAnalista);
         }
 
-        [HttpPost]
-        [Route("Guardar")]
-        public async Task<IActionResult> Guardar([FromBody] Analista request)
+        [HttpUpdate]
+        [Route("actualizaAnalista")]
+        public async Task<IActionResult> actualizaAnalista([FromBody] Analista request)
         {
-
-            var query = new Query("Analista").AsInsert(new
-            {
-                UUID = request.UUID,
-                UUID_USUARIO = request.UUID_USUARIO,
-                ESTADO = request.ESTADO,
-                FECHA_ALTA = new DateTime(2009, 8, 4),
-                FECHA_BAJA = new DateTime(2009, 8, 4),
-                FECHA_MODIFICACION = new DateTime(2009, 8, 4),
-                TICKETS_RESUELTOS = request.TICKETS_RESUELTOS,
-                TICKETS_EXITOSOS = request.TICKETS_EXITOSOS,
-                TICKETS_FALLO = request.TICKETS_FALLO,
-                TICKETS_CANCELA = request.TICKETS_CANCELA
-            });
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+
+            var query = new Query("ANALISTA").AsInsert(new
+            {
+
+            UUID_USUARIO = request.UUID_USUARIO;
+            ESTADO = request.ESTADO;
+            FECHA_ALTA = request.FECHA_ALTA;
+            FECHA_BAJA = request.FECHA_BAJA;
+            TICKETS_RESUELTOS = request.TICKETS_RESUELTOS;
+            TICKETS_EXITOSOS = TICKETS_EXITOSOS;
+            TICKETS_FALLO = request.TICKETS_FALLO;
+            TICKETS_CANCELA = request.TICKETS_CANCELA;
+            });
+
             var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
 
-            //var resp = execute.ExecuterOracle(sql);
-            var resp = "";
-            return StatusCode(StatusCodes.Status200OK, resp);
-
+            return StatusCode(StatusCodes.Status200OK, resp )
         }
-
 
     }
 }

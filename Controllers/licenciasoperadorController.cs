@@ -25,12 +25,12 @@ namespace Flotilla_netCORE.Controllers
             query.From("LICENCIAS_POR_OPERADOR");
             //query compilacion
             var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
+            //llenado de objeto tipo lista
             execute.DataReader(sql.ToString(), reader =>
             {
                 licenceop = DataReaderMapper<LicenciasPorOperador>.MapToList(reader);
             });
-            
+
             // llenado de objeto tipo clase
             //UserSession users = new UserSession();
             //execute.DataReader(sql.ToString(), reader =>
@@ -42,6 +42,53 @@ namespace Flotilla_netCORE.Controllers
 
         }
 
+        //ejemplo
+        [HttpPost]
+        [Route("Guardalicencia")]
+        public async Task<IActionResult> Guardalicencia([FromBody] LICENCIAS_POR_OPERADOR request)
+        {
+        ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+
+        var query = new Query("LICENCIAS_POR_OPERADOR").AsInsert(new
+            {
+                UUID_OPERADOR = request.UUID_OPERADOR,
+                TIPO = request.TIPO,
+                DESCRIPCION = request.DESCRIPCION,
+                FECHA_EMISION = request.FECHA_EMISION,
+                FECHA_CADUCIDAD = request.FECHA_CADUCIDAD
+
+            });
+
+            var sql3 = execute.ExecuterCompiler(query);
+             var resp = execute.ExecuteDecider(sql3);
+
+
+        return StatusCode(StatusCodes.Status200OK, resp );
+        }
+
+        [HttpUpdate]
+        [Route("Actualizalicencia")]
+        public async Task<IActionResult> Actualizalicencia([FromBody] LICENCIAS_POR_OPERADOR request)
+        {
+        ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+
+        var query = new Query("LICENCIAS_POR_OPERADOR").AsInsert(new
+            {
+                UUID_OPERADOR = request.UUID_OPERADOR,
+                TIPO = request.TIPO,
+                DESCRIPCION = request.DESCRIPCION,
+                FECHA_EMISION = request.FECHA_EMISION,
+                FECHA_CADUCIDAD = request.FECHA_CADUCIDAD
+
+            });
+
+            var sql3 = execute.ExecuterCompiler(query);
+             var resp = execute.ExecuteDecider(sql3);
+
+
+        return StatusCode(StatusCodes.Status200OK, resp )
+
+        }
         
     }
 }

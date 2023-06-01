@@ -10,43 +10,76 @@ namespace Flotilla_netCORE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class operadorController : ControllerBase
+    public class operadorController : Controller
     {
-             private readonly OraConnect _context;
-
-        public operadorController(OraConnect context)
+         [HttpPost]
+        [Route("guardaOperador")]
+        public async Task<IActionResult> guardaOperador([FromBody] Operador request)
         {
-            _context = context;
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+
+            var query = new Query("OPERADOR").AsInsert(new
+            {
+            UUID_USUARIO = request.UUID_USUARIO;
+            FECHA_ALTA = request.FECHA_ALTA;
+            FECHA_BAJA = request.FECHA_BAJA;
+            UUID_LICENCIA = request.UUID_LICENCIA;
+            NO_LICENCIAS = NO_LICENCIAS;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
+
         }
 
-        //obtener data
         [HttpGet]
         [Route("Lista")]
         public async Task<IActionResult> Lista()
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<Operador> OP = new List<Operador>();
-            //query en sqlkata
+            List<Operador> listaOperador = new List<Operador>();
 
             Query query = new Query();
-            query.Select("UUID");
-            query.From("Operador");
-            //query compilacion
+            query.Select(
+            "UUID_USUARIO",
+            "FECHA_ALTA",
+            "FECHA_BAJA",
+            "UUID_LICENCIA",
+            "NO_LICENCIAS";
+            )
+            query.From("OPERADOR");
+
             var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
+
             execute.DataReader(sql.ToString(), reader =>
             {
-                OP = DataReaderMapper<Operador>.MapToList(reader);
+                listaOperador = DataReaderMapper<Operador>.MapToList(reader);
             });
-            
-            // llenado de objeto tipo clase
-            //UserSession users = new UserSession();
-            //execute.DataReader(sql.ToString(), reader =>
-            //{
-            //    users = DataReaderMapper<UserSession>.MapToObject(reader);
-            //});
 
-            return StatusCode(StatusCodes.Status200OK, OP);
+            return StatusCode(StatusCodes.Status200OK, listaOperador);
+        }
+
+        [HttpUpdate]
+        [Route("actualizaOperador")]
+        public async Task<IActionResult> actualizaOperador([FromBody] Operador request)
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+
+            var query = new Query("OPERADOR").AsInsert(new
+            {
+            UUID_USUARIO = request.UUID_USUARIO;
+            FECHA_ALTA = request.FECHA_ALTA;
+            FECHA_BAJA = request.FECHA_BAJA;
+            UUID_LICENCIA = request.UUID_LICENCIA;
+            NO_LICENCIAS = NO_LICENCIAS;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
 
         }
    

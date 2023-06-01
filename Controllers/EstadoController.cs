@@ -9,46 +9,73 @@ namespace Flotilla_netCORE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EstadoController : ControllerBase
+    public class EstadoController : Controller
     {
-        private readonly OraConnect _context;
 
-        public EstadoController(OraConnect context)
-        {
-            _context = context;
-        }
-
-        //obtener data
-        [HttpGet]
-        [Route("state")]
-        public async Task<IActionResult> state()
+        [HttpPost]
+        [Route("guardaEstado")]
+        public async Task<IActionResult> guardaEstado([FromBody] Estado request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<Estado> estados = new List<Estado>();
-            //query en sqlkata
 
-            Query query = new Query();
-            query.Select("UUID");
-            query.From("Estado");
-            //query compilacion
-            var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
-            execute.DataReader(sql.ToString(), reader =>
+            var query = new Query("ESTADO").AsInsert(new
             {
-                estados = DataReaderMapper<Estado>.MapToList(reader);
+            DESCRIPCION = request.DESCRIPCION;
+            FECHA_INGRESO = request.FECHA_INGRESO;
+            FECHA_MODIFICA = request.FECHA_MODIFICA;
             });
 
-            // llenado de objeto tipo clase
-            //UserSession users = new UserSession();
-            //execute.DataReader(sql.ToString(), reader =>
-            //{
-            //    users = DataReaderMapper<UserSession>.MapToObject(reader);
-            //});
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, estados);
-
-
+            return StatusCode(StatusCodes.Status200OK, resp )
 
         }
+
+        [HttpGet]
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+            List<Estado> listaeEstado = new List<Estado>();
+
+            Query query = new Query();
+            query.Select(
+            "DESCRIPCION",
+            "FECHA_INGRESO",
+            "FECHA_MODIFICA";
+            )
+            query.From("ESTADO");
+
+            var sql = execute.ExecuterCompiler(query);
+
+            execute.DataReader(sql.ToString(), reader =>
+            {
+                listaEstado = DataReaderMapper<Estado>.MapToList(reader);
+            });
+
+            return StatusCode(StatusCodes.Status200OK, listaEstado);
+        }
+
+        [HttpUpdate]
+        [Route("ActualizaEstado")]
+        public async Task<IActionResult> ActualizaEstado([FromBody] Estado request)
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+
+            var query = new Query("ESTADO").AsInsert(new
+            {
+            DESCRIPCION = request.DESCRIPCION;
+            FECHA_INGRESO = request.FECHA_INGRESO;
+            FECHA_MODIFICA = request.FECHA_MODIFICA;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
+
+        }
+
     }
 }

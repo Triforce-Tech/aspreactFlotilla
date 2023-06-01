@@ -11,46 +11,79 @@ namespace Flotilla_netCORE.Controllers
     [ApiController]
     public class CatalogoController : ControllerBase
     {
- private readonly OraConnect _context;
-
-        public CatalogoController(OraConnect context)
-        {
-            _context = context;
-        }
-
-        //obtener data
-        [HttpGet]
-        [Route("control")]
-        public async Task<IActionResult> control()
+        [HttpPost]
+        [Route("guardaCatalogo")]
+        public async Task<IActionResult> guardaCatalogo([FromBody] Catalogo request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<Catalogo> catalogos = new List<Catalogo>();
-            //query en sqlkata
 
-            Query query = new Query();
-            query.Select("UUID");
-            query.From("Catalogo");
-            //query compilacion
-            var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
-            execute.DataReader(sql.ToString(), reader =>
+            var query = new Query("CATALOGO").AsInsert(new
             {
-                catalogos = DataReaderMapper<Catalogo>.MapToList(reader);
-            });
-            
-            // llenado de objeto tipo clase
-            //UserSession users = new UserSession();
-            //execute.DataReader(sql.ToString(), reader =>
-            //{
-            //    users = DataReaderMapper<UserSession>.MapToObject(reader);
-            //});
 
-            return StatusCode(StatusCodes.Status200OK, catalogos);
+            CATALOGO = request.CATALOGO;
+            DESCRIPCION = request.DESCRIPCION;
+            UUID_ESTADO = request.UUID_ESTADO;
+            FECHA_MODIFICACION_CATALOGO = request.FECHA_MODIFICACION_CATALOGO;
+            FECHA_CREACION = request.FECHA_CREACION;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
 
         }
 
+        [HttpGet]
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+            List<Catalogo> listaCatalogo = new List<Catalogo>();
 
+            Query query = new Query();
+            query.Select(
+            "CATALOGO",
+            "DESCRIPCION",
+            "UUID_ESTADO",
+            "FECHA_MODIFICACION",
+            "FECHA_CREACION";
+            )
+            query.From("CATALOGO");
 
-        
+            var sql = execute.ExecuterCompiler(query);
+
+            execute.DataReader(sql.ToString(), reader =>
+            {
+                listaCatalogo = DataReaderMapper<Catalogo>.MapToList(reader);
+            });
+
+            return StatusCode(StatusCodes.Status200OK, listaCatalogo);
+        }
+
+        [HttpUpdate]
+        [Route("actualizaCatalogo")]
+        public async Task<IActionResult> actualizaCatalogo([FromBody] Catalogo request)
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+
+            var query = new Query("CATALOGO").AsInsert(new
+            {
+
+            CATALOGO = request.CATALOGO;
+            DESCRIPCION = request.DESCRIPCION;
+            UUID_ESTADO = request.UUID_ESTADO;
+            FECHA_MODIFICACION_CATALOGO = request.FECHA_MODIFICACION_CATALOGO;
+            FECHA_CREACION = request.FECHA_CREACION;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
+
+        }
+
     }
+
 }
