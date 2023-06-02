@@ -9,68 +9,81 @@ namespace Flotilla_netCORE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TipoUsuarioController : ControllerBase
+    public class TipoUsuarioController : Controller
     {
 
-        private readonly OraConnect _context;
-
-        public TipoUsuarioController(OraConnect context)
-        {
-            _context = context;
-        }
-
-        //obtener data
-        [HttpGet]
-        [Route("usertype")]
-        public async Task<IActionResult> usertype()
+        [HttpPost]
+        [Route("guardaTipoUsuario")]
+        public async Task<IActionResult> guardaTipoUsuario([FromBody] TipoUsuario request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<TipoUsuario> usertype = new List<TipoUsuario>();
-            //query en sqlkata
 
-            Query query = new Query();
-            query.Select("UUID");
-            query.From("TipoUsuario");
-            //query compilacion
-            var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
-            execute.DataReader(sql.ToString(), reader =>
+            var query = new Query("TIPO_USUARIO").AsInsert(new
             {
-                usertype = DataReaderMapper<TipoUsuario>.MapToList(reader);
+
+            UUID_NIVEL = request.UUID_NIVEL;
+            TIPO = request.TIPO;
+            DESCRIPCION = request.DESCRIPCION;
+            UUID_ESTADO = request.UUID_ESTADO;
+            FECHA_MODIFICACION = request.FECHA_MODIFICACION;
+            FECHA_CREACION = request.FECHA_CREACION;
             });
 
-            // llenado de objeto tipo clase
-            //UserSession users = new UserSession();
-            //execute.DataReader(sql.ToString(), reader =>
-            //{
-            //    users = DataReaderMapper<UserSession>.MapToObject(reader);
-            //});
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, usertype);
+            return StatusCode(StatusCodes.Status200OK, resp )
 
         }
 
-        [HttpPost]
-        [Route("Guardar")]
-        public async Task<IActionResult> Guardar([FromBody] TipoUsuario request)
+        [HttpGet]
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
         {
-
-            var query = new Query("TipoUsuario").AsInsert(new
-            {
-                UUID = request.UUID,
-                UUID_NIVEL = request.UUID_NIVEL,
-                TIPO = request.TIPO,
-                DESCRIPCION = request.DESCRIPCION,
-                UUID_ESTADO = request.UUID_ESTADO,
-                FECHA_MODIFICACION = new DateTime(2009, 8, 4),
-                FECHA_CREACION = new DateTime(2009, 8, 4)
-                });
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+            List<TipoUsuario> listaTipoUsuario = new List<TipoUsuario>();
+
+            Query query = new Query();
+            query.Select(
+            "UUID_NIVEL",
+            "TIPO",
+            "DESCRIPCION",
+            "UUID_ESTADO",
+            "FECHA_MODIFICACION",
+            "FECHA_CREACION";
+            )
+            query.From("TIPO_USUARIO");
+
             var sql = execute.ExecuterCompiler(query);
 
-            //var resp = execute.ExecuterOracle(sql);
-        var resp = "";
-            return StatusCode(StatusCodes.Status200OK, resp);
+            execute.DataReader(sql.ToString(), reader =>
+            {
+                listaTipoUsuario = DataReaderMapper<TipoUsuario>.MapToList(reader);
+            });
+
+            return StatusCode(StatusCodes.Status200OK, listaTipoUsuario);
+        }
+        [HttpUpdate]
+        [Route("actualizaTipoUsuario")]
+        public async Task<IActionResult> actualizaTipoUsuario([FromBody] TipoUsuario request)
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+
+            var query = new Query("TIPO_USUARIO").AsInsert(new
+            {
+
+            UUID_NIVEL = request.UUID_NIVEL;
+            TIPO = request.TIPO;
+            DESCRIPCION = request.DESCRIPCION;
+            UUID_ESTADO = request.UUID_ESTADO;
+            FECHA_MODIFICACION = request.FECHA_MODIFICACION;
+            FECHA_CREACION = request.FECHA_CREACION;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
 
         }
 

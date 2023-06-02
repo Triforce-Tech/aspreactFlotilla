@@ -12,64 +12,76 @@ namespace Flotilla_netCORE.Controllers
     public class RutaController : ControllerBase
     {
 
-        private readonly OraConnect _context;
-
-        public RutaController(OraConnect context)
-        {
-            _context = context;
-        }
-
-        //obtener data
-        [HttpGet]
-        [Route("route")]
-        public async Task<IActionResult> route()
+        [HttpPost]
+        [Route("guardaRuta")]
+        public async Task<IActionResult> guardaRuta([FromBody] Ruta request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<Ruta> route = new List<Ruta>();
-            //query en sqlkata
 
-            Query query = new Query();
-            query.Select("UUID");
-            query.From("Ruta");
-            //query compilacion
-            var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
-            execute.DataReader(sql.ToString(), reader =>
+            var query = new Query("RUTA").AsInsert(new
             {
-                route = DataReaderMapper<Ruta>.MapToList(reader);
+
+            DESCRIPCION = request.DESCRIPCION;
+            COORDENADA_PUNTO_A = request.COORDENADA_PUNTO_A;
+            COORDENADA_PUNTO_B = request.COORDENADA_PUNTO_B;
+            LINK_GOOGLE = request.LINK_GOOGLE;
+            DISTANCIA_KM = request.DISTANCIA_KM;
             });
 
-            // llenado de objeto tipo clase
-            //UserSession users = new UserSession();
-            //execute.DataReader(sql.ToString(), reader =>
-            //{
-            //    users = DataReaderMapper<UserSession>.MapToObject(reader);
-            //});
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, route);
+            return StatusCode(StatusCodes.Status200OK, resp )
 
+        }
+
+        [HttpGet]
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+            List<Ruta> listaRuta = new List<Ruta>();
+
+            Query query = new Query();
+            query.Select(
+            "DESCRIPCION",
+            "COORDENADA_PUNTO_A",
+            "COORDENADA_PUNTO_B",
+            "LINK_GOOGLE",
+            "DISTANCIA_KM";
+            )
+            query.From("RUTA");
+
+            var sql = execute.ExecuterCompiler(query);
+
+            execute.DataReader(sql.ToString(), reader =>
+            {
+                listaRuta = DataReaderMapper<Ruta>.MapToList(reader);
+            });
+
+            return StatusCode(StatusCodes.Status200OK, listaRuta);
         }
 
         [HttpPost]
-        [Route("Guardar")]
-        public async Task<IActionResult> Guardar([FromBody] Ruta request)
+        [Route("actualizaRuta")]
+        public async Task<IActionResult> actualizaRuta([FromBody] Ruta request)
         {
-
-            var query = new Query("Vehiculo").AsInsert(new
-            {
-               
-                DESCRIPCION = request.DESCRIPCION,
-                COORDENADA_PUNTO_A = request.COORDENADA_PUNTO_A,
-                COORDENADA_PUNTO_B = request.COORDENADA_PUNTO_B,
-                LINK_GOOGLE = request.LINK_GOOGLE,
-                DISTANCIA_KM = request.DISTANCIA_KM
-            });
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            var sql = execute.ExecuterCompiler(query);
 
-            //var resp = execute.ExecuterOracle(sql);
-            var resp = "";
-            return StatusCode(StatusCodes.Status200OK, resp);
+            var query = new Query("RUTA").AsInsert(new
+            {
+
+            DESCRIPCION = request.DESCRIPCION;
+            COORDENADA_PUNTO_A = request.COORDENADA_PUNTO_A;
+            COORDENADA_PUNTO_B = request.COORDENADA_PUNTO_B;
+            LINK_GOOGLE = request.LINK_GOOGLE;
+            DISTANCIA_KM = request.DISTANCIA_KM;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
 
         }
 

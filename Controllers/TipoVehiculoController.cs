@@ -12,66 +12,83 @@ namespace Flotilla_netCORE.Controllers
     public class TipoVehiculoController : ControllerBase
     {
 
-        private readonly OraConnect _context;
-
-        public TipoVehiculoController(OraConnect context)
-        {
-            _context = context;
-        }
-
-        //obtener data
-        [HttpGet]
-        [Route("vehicletype")]
-        public async Task<IActionResult> vehicletype()
+        [HttpPost]
+        [Route("guardaTipoVehiculo")]
+        public async Task<IActionResult> guardaTipoVehiculo([FromBody] TipoVehiculo request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<TipoVehiculo> vehicletype = new List<TipoVehiculo>();
-            //query en sqlkata
+
+            var query = new Query("TIPO_VEHICULO").AsInsert(new
+            {
+
+            MARCA = request.MARCA;
+            MODELO = request.MODELO;
+            AÑO = request.AÑO;
+            DESCRIPCION = request.DESCRIPCION;
+            TIPO = request.TIPO;
+            TIPO_GASOLINA = request.TIPO_GASOLINA;
+            TIPO_DIESEL = request.TIPO_DIESEL;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
+
+        }
+
+        [HttpGet]
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+            List<TipoVehiculo> listaTipoVehiculo = new List<TipoVehiculo>();
 
             Query query = new Query();
-            query.Select("UUID");
-            query.From("TipoVehiculo");
-            //query compilacion
+            query.Select(
+            "MARCA",
+            "MODELO",
+            "AÑO",
+            "DESCRIPCION",
+            "TIPO",
+            "TIPO_GASOLINA",
+            "TIPO_DIESEL";
+            )
+            query.From("TIPO_VEHICULO");
+
             var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
+
             execute.DataReader(sql.ToString(), reader =>
             {
-                vehicletype = DataReaderMapper<TipoVehiculo>.MapToList(reader);
+                listaTipoVehiculo = DataReaderMapper<TipoVehiculo>.MapToList(reader);
             });
 
-            // llenado de objeto tipo clase
-            //UserSession users = new UserSession();
-            //execute.DataReader(sql.ToString(), reader =>
-            //{
-            //    users = DataReaderMapper<UserSession>.MapToObject(reader);
-            //});
-
-            return StatusCode(StatusCodes.Status200OK, vehicletype);
-
+            return StatusCode(StatusCodes.Status200OK, listaTipoVehiculo);
         }
 
-        [HttpPost]
-        [Route("Guardar")]
-        public async Task<IActionResult> Guardar([FromBody] TipoVehiculo request)
+
+        [HttpUpdate]
+        [Route("actualizaTipoVehiculo")]
+        public async Task<IActionResult> actualizaTipoVehiculo([FromBody] TipoVehiculo request)
         {
-
-            var query = new Query("Vehiculo").AsInsert(new
-            {
-                UUID = request.UUID,
-                MARCA = request.MARCA,
-                MODELO = request.MODELO,
-                AÑO = request.AÑO,
-                DESCRIPCION = request.DESCRIPCION,
-                TIPO = request.TIPO,
-                TIPO_GASOLINA = request.TIPO_GASOLINA,
-                TIPO_DISEL = request.TIPO_DISEL
-            });
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            var sql = execute.ExecuterCompiler(query);
 
-            //var resp = execute.ExecuterOracle(sql);
-        var resp = "";
-            return StatusCode(StatusCodes.Status200OK, resp);
+            var query = new Query("TIPO_VEHICULO").AsInsert(new
+            {
+
+            MARCA = request.MARCA;
+            MODELO = request.MODELO;
+            AÑO = request.AÑO;
+            DESCRIPCION = request.DESCRIPCION;
+            TIPO = request.TIPO;
+            TIPO_GASOLINA = request.TIPO_GASOLINA;
+            TIPO_DIESEL = request.TIPO_DIESEL;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
 
         }
 

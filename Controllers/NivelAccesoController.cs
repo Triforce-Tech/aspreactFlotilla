@@ -11,43 +11,73 @@ namespace Flotilla_netCORE.Controllers
     [ApiController]
     public class NivelAccesoController : ControllerBase
     {
-         private readonly OraConnect _context;
-
-        public NivelAccesoController(OraConnect context)
-        {
-            _context = context;
-        }
-
-        //obtener data
-        [HttpGet]
-        [Route("levelaccess")]
-        public async Task<IActionResult> levelaccess()
+        [HttpPost]
+        [Route("guardaNivelAcceso")]
+        public async Task<IActionResult> guardaNivelAcceso([FromBody] NivelAcceso request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<NivelAccesso> levela = new List<NivelAccesso>();
-            //query en sqlkata
 
-            Query query = new Query();
-            query.Select("UUID");
-            query.From("NivelAccesso");
-            //query compilacion
-            var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
-            execute.DataReader(sql.ToString(), reader =>
+            var query = new Query("NIVEL_ACCESO").AsInsert(new
             {
-                levela = DataReaderMapper<NivelAccesso>.MapToList(reader);
-            });
-            
-            // llenado de objeto tipo clase
-            //UserSession users = new UserSession();
-            //execute.DataReader(sql.ToString(), reader =>
-            //{
-            //    users = DataReaderMapper<UserSession>.MapToObject(reader);
-            //});
 
-            return StatusCode(StatusCodes.Status200OK, levela);
+            TIPO = request.TIPO;
+            DESCRIPCION = request.DESCRIPCION;
+            UUID_CATALOGO_LIST = request.UUID_CATALOGO_LIST;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
 
         }
+
+        [HttpGet]
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+            List<Analista> listaNivelAcceso = new List<NivelAcceso>();
+
+            Query query = new Query();
+            query.Select(
+            "TIPO",
+            "DESCRIPCION",
+            "UUID_CATALOGO_LIST";
+            )
+            query.From("NIVEL_ACCESO");
+
+            var sql = execute.ExecuterCompiler(query);
+
+            execute.DataReader(sql.ToString(), reader =>
+            {
+                listaNivelAcceso = DataReaderMapper<NivelAcceso>.MapToList(reader);
+            });
+
+            return StatusCode(StatusCodes.Status200OK, listaNivelAcceso);
+        }
+
+        [HttpPost]
+        [Route("ActualizaNivelAcceso")]
+        public async Task<IActionResult> ActualizaNivelAcceso([FromBody] NivelAcceso request)
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+
+            var query = new Query("NIVEL_ACCESO").AsInsert(new
+            {
+
+            TIPO = request.TIPO;
+            DESCRIPCION = request.DESCRIPCION;
+            UUID_CATALOGO_LIST = request.UUID_CATALOGO_LIST;
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
+
+        }
+
  
     }
 }

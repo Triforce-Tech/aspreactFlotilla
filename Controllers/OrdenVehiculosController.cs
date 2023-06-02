@@ -12,74 +12,108 @@ namespace Flotilla_netCORE.Controllers
     public class OrdenVehiculosController : ControllerBase
     {
 
-        private readonly OraConnect _context;
-
-        public OrdenVehiculosController(OraConnect context)
-        {
-            _context = context;
-        }
-
-        //obtener data
-        [HttpGet]
-        [Route("vehicleorder")]
-        public async Task<IActionResult> vehicleorder()
+        [HttpPost]
+        [Route("guardaOrdenVehiculos")]
+        public async Task<IActionResult> guardaOrdenVehiculos([FromBody] OrdenVehiculos request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<OrdenVehiculos> vehicleorder = new List<OrdenVehiculos>();
-            //query en sqlkata
+
+            var query = new Query("ORDEN_VEHICULOS").AsInsert(new
+            {
+
+            UUID_USUARIO = request.UUID_USUARIO;
+            UUID_RUTA = request.UUID_RUTA;
+            UUID_VEHICULO = request.UUID_VEHICULO;
+            KM = request.KM;
+            FECHA_INGRESO = request.FECHA_INGRESO;
+            FECHA_ASIGNACION = reques.FECHA_ASIGNACION;
+            FECHA_MODIFICACION = request.FECHA_MODIFICACION;
+            FECHA_CREACION = request.FECHA_CREACION;
+            UUID_ESTADO = request.UUID_ESTADO;
+            DESCRIPCION = request.DESCRIPCION;
+            EMPRESA = request.EMPRESA;
+            FECHA_ENTREGA = request.FECHA_ENTREGA;
+            FECHA_RECOLECCION = request.FECHA_RECOLECCION;
+            PRECIO = request.PRECIO;
+            UUID_TIPO_PRECIO = request.UUID_TIPO_PRECIO;
+
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
+
+        }
+
+        [HttpGet]
+        [Route("Lista")]
+        public async Task<IActionResult> Lista()
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+            List<OrdenVehiculos> listaOrdenVehiculos = new List<OrdenVehiculos>();
 
             Query query = new Query();
-            query.Select("UUID");
-            query.From("OrdenVehiculos");
-            //query compilacion
+            query.Select(
+            "UUID_USUARIO",
+            "UUID_RUTA",
+            "UUID_VEHICULO",
+            "KM",
+            "FECHA_INGRESO",
+            "FECHA_ASIGNACION",
+            "FECHA_MODIFICACION",
+            "FECHA_CREACION",
+            "UUID_ESTADO",
+            "DESCRIPCION",
+            "EMPRESA",
+            "FECHA_ENTREGA",
+            "FECHA_RECOLECCION",
+            "PRECIO",
+            "UUID_TIPO_PRECIO",
+            )
+            query.From("ORDEN_VEHICULOS");
+
             var sql = execute.ExecuterCompiler(query);
-            //llenado de objeto tipo lista 
+
             execute.DataReader(sql.ToString(), reader =>
             {
-                vehicleorder = DataReaderMapper<OrdenVehiculos>.MapToList(reader);
+                listaOrdenVehiculos = DataReaderMapper<OrdenVehiculos>.MapToList(reader);
             });
 
-            // llenado de objeto tipo clase
-            //UserSession users = new UserSession();
-            //execute.DataReader(sql.ToString(), reader =>
-            //{
-            //    users = DataReaderMapper<UserSession>.MapToObject(reader);
-            //});
-
-            return StatusCode(StatusCodes.Status200OK, vehicleorder);
-
+            return StatusCode(StatusCodes.Status200OK, listaOrdenVehiculos);
         }
 
-        [HttpPost]
-        [Route("Guardar")]
-        public async Task<IActionResult> Guardar([FromBody] OrdenVehiculos request)
+        [HttpUpdate]
+        [Route("actualizaOrdenVehiculos")]
+        public async Task<IActionResult> actualizaOrdenVehiculos([FromBody] OrdenVehiculos request)
         {
-
-            var query = new Query("Vehiculo").AsInsert(new
-            {
-                
-                UUID_USUARIO = request.UUID_USUARIO,
-                UUID_RUTA = request.UUID_RUTA,
-                UUID_VEHICULO = request.UUID_VEHICULO,
-                KM = request.KM,
-                FECHA_INGRESO = new DateTime(2009, 8, 4),
-                FECHA_ASIGNACION = new DateTime(2009, 8, 4),
-                FECHA_MODIFICACION = new DateTime(2009, 8, 4),
-                FECHA_CREACION = new DateTime(2009, 8, 4),
-                UUID_ESTADO = request.UUID_ESTADO,
-                DESCRIPCION = request.DESCRIPCION,
-                EMPRESA = request.EMPRESA,
-                FECHA_ENTREGA = new DateTime(2009, 8, 4),
-                FECHA_RECOLECCION = new DateTime(2009, 8, 4),
-                PRECIO = request.PRECIO,
-                UUID_TIPO_PRECIO = request.UUID_TIPO_PRECIO
-            });
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            var sql = execute.ExecuterCompiler(query);
 
-            //var resp = execute.ExecuterOracle(sql);
-        var resp = "";
-            return StatusCode(StatusCodes.Status200OK, resp);
+            var query = new Query("ORDEN_VEHICULOS").AsInsert(new
+            {
+
+            UUID_USUARIO = request.UUID_USUARIO;
+            UUID_RUTA = request.UUID_RUTA;
+            UUID_VEHICULO = request.UUID_VEHICULO;
+            KM = request.KM;
+            FECHA_INGRESO = request.FECHA_INGRESO;
+            FECHA_ASIGNACION = reques.FECHA_ASIGNACION;
+            FECHA_MODIFICACION = request.FECHA_MODIFICACION;
+            FECHA_CREACION = request.FECHA_CREACION;
+            UUID_ESTADO = request.UUID_ESTADO;
+            DESCRIPCION = request.DESCRIPCION;
+            EMPRESA = request.EMPRESA;
+            FECHA_ENTREGA = request.FECHA_ENTREGA;
+            FECHA_RECOLECCION = request.FECHA_RECOLECCION;
+            PRECIO = request.PRECIO;
+            UUID_TIPO_PRECIO = request.UUID_TIPO_PRECIO;
+
+            });
+
+            var sql = execute.ExecuterCompiler(query);
+            var resp = execute.ExecuteDecider(sql);
+
+            return StatusCode(StatusCodes.Status200OK, resp )
 
         }
 

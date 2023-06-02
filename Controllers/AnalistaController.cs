@@ -25,7 +25,7 @@ namespace Flotilla_netCORE.Controllers
             FECHA_ALTA = request.FECHA_ALTA;
             FECHA_BAJA = request.FECHA_BAJA;
             TICKETS_RESUELTOS = request.TICKETS_RESUELTOS;
-            TICKETS_EXITOSOS = TICKETS_EXITOSOS;
+            TICKETS_EXITOSOS = request.TICKETS_EXITOSOS;
             TICKETS_FALLO = request.TICKETS_FALLO;
             TICKETS_CANCELA = request.TICKETS_CANCELA;
             });
@@ -81,7 +81,7 @@ namespace Flotilla_netCORE.Controllers
             FECHA_ALTA = request.FECHA_ALTA;
             FECHA_BAJA = request.FECHA_BAJA;
             TICKETS_RESUELTOS = request.TICKETS_RESUELTOS;
-            TICKETS_EXITOSOS = TICKETS_EXITOSOS;
+            TICKETS_EXITOSOS = request.TICKETS_EXITOSOS;
             TICKETS_FALLO = request.TICKETS_FALLO;
             TICKETS_CANCELA = request.TICKETS_CANCELA;
             });
