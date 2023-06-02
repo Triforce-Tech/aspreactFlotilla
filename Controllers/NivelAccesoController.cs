@@ -13,22 +13,22 @@ namespace Flotilla_netCORE.Controllers
     {
         [HttpPost]
         [Route("guardaNivelAcceso")]
-        public async Task<IActionResult> guardaNivelAcceso([FromBody] NivelAcceso request)
+        public async Task<IActionResult> guardaNivelAcceso([FromBody] NivelAccesso request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
 
             var query = new Query("NIVEL_ACCESO").AsInsert(new
             {
 
-            TIPO = request.TIPO;
-            DESCRIPCION = request.DESCRIPCION;
-            UUID_CATALOGO_LIST = request.UUID_CATALOGO_LIST;
+            TIPO = request.TIPO,
+            DESCRIPCION = request.DESCRIPCION,
+            UUID_CATALOGO_LIST = request.UUID_CATALOG_LIST
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -37,21 +37,21 @@ namespace Flotilla_netCORE.Controllers
         public async Task<IActionResult> Lista()
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
-            List<Analista> listaNivelAcceso = new List<NivelAcceso>();
+            List<NivelAccesso> listaNivelAcceso = new List<NivelAccesso>();
 
             Query query = new Query();
             query.Select(
             "TIPO",
             "DESCRIPCION",
-            "UUID_CATALOGO_LIST";
-            )
+            "UUID_CATALOGO_LIST"
+            );
             query.From("NIVEL_ACCESO");
 
             var sql = execute.ExecuterCompiler(query);
 
             execute.DataReader(sql.ToString(), reader =>
             {
-                listaNivelAcceso = DataReaderMapper<NivelAcceso>.MapToList(reader);
+                listaNivelAcceso = DataReaderMapper<NivelAccesso>.MapToList(reader);
             });
 
             return StatusCode(StatusCodes.Status200OK, listaNivelAcceso);
@@ -59,22 +59,22 @@ namespace Flotilla_netCORE.Controllers
 
         [HttpPost]
         [Route("ActualizaNivelAcceso")]
-        public async Task<IActionResult> ActualizaNivelAcceso([FromBody] NivelAcceso request)
+        public async Task<IActionResult> ActualizaNivelAcceso([FromBody] NivelAccesso request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
 
             var query = new Query("NIVEL_ACCESO").AsInsert(new
             {
 
-            TIPO = request.TIPO;
-            DESCRIPCION = request.DESCRIPCION;
-            UUID_CATALOGO_LIST = request.UUID_CATALOGO_LIST;
+            TIPO = request.TIPO,
+            DESCRIPCION = request.DESCRIPCION,
+            UUID_CATALOGO_LIST = request.UUID_CATALOG_LIST
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 

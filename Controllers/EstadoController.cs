@@ -20,15 +20,15 @@ namespace Flotilla_netCORE.Controllers
 
             var query = new Query("ESTADO").AsInsert(new
             {
-            DESCRIPCION = request.DESCRIPCION;
-            FECHA_INGRESO = request.FECHA_INGRESO;
-            FECHA_MODIFICA = request.FECHA_MODIFICA;
+                DESCRIPCION = request.DESCRIPCION,
+                FECHA_INGRESO = request.FECHA_INGRESO,
+                FECHA_MODIFICA = request.FECHA_MODIFICA
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -43,21 +43,21 @@ namespace Flotilla_netCORE.Controllers
             query.Select(
             "DESCRIPCION",
             "FECHA_INGRESO",
-            "FECHA_MODIFICA";
-            )
+            "FECHA_MODIFICA"
+            );
             query.From("ESTADO");
 
             var sql = execute.ExecuterCompiler(query);
 
             execute.DataReader(sql.ToString(), reader =>
             {
-                listaEstado = DataReaderMapper<Estado>.MapToList(reader);
+                listaeEstado = DataReaderMapper<Estado>.MapToList(reader);
             });
 
-            return StatusCode(StatusCodes.Status200OK, listaEstado);
+            return StatusCode(StatusCodes.Status200OK, listaeEstado);
         }
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("ActualizaEstado")]
         public async Task<IActionResult> ActualizaEstado([FromBody] Estado request)
         {
@@ -65,15 +65,15 @@ namespace Flotilla_netCORE.Controllers
 
             var query = new Query("ESTADO").AsInsert(new
             {
-            DESCRIPCION = request.DESCRIPCION;
-            FECHA_INGRESO = request.FECHA_INGRESO;
-            FECHA_MODIFICA = request.FECHA_MODIFICA;
+                DESCRIPCION = request.DESCRIPCION,
+                FECHA_INGRESO = request.FECHA_INGRESO,
+                FECHA_MODIFICA = request.FECHA_MODIFICA
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 

@@ -21,21 +21,21 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("ORDEN_OP").AsInsert(new
             {
 
-            UUID_OPERADOR = request.UUID_OPERADOR;
-            UUID_ORDEN = request.UUID_ORDEN;
-            UUID_ESTADO = request.UUID_ESTADO;
-            FECHA_ASIGNA = request.FECHA_ASIGNA;
-            FECHA_MODIFICA = request.FECHA_MODIFICA;
-            FECHA_CANCELA = FECHA_CANCELA;
-            DESCRIPCION = request.DESCRIPCION;
-            NO_ORDEN = request.NO_ORDEN;
-            ORDEN_ENTREA = request.ORDEN_ENTREA;
+            UUID_OPERADOR = request.UUID_OPERADOR,
+            UUID_ORDEN = request.UUID_ORDEN,
+            UUID_ESTADO = request.UUID_ESTADO,
+            FECHA_ASIGNA = request.FECHA_ASIGNA,
+            FECHA_MODIFICA = request.FECHA_MODIFICA,
+            FECHA_CANCELA = request.FECHA_CANCELA,
+            DESCRIPCION = request.DESCRIPCION,
+            NO_ORDEN = request.NO_ORDEN,
+            ORDEN_ENTREA = request.ORDEN_ENTREA
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -56,8 +56,8 @@ namespace Flotilla_netCORE.Controllers
             "FECHA_CANCELA",
             "DESCRIPCION",
             "NO_ORDEN",
-            "ORDEN_ENTREA";
-            )
+            "ORDEN_ENTREA"
+            );
             query.From("ORDEN");
 
             var sql = execute.ExecuterCompiler(query);
@@ -70,7 +70,7 @@ namespace Flotilla_netCORE.Controllers
             return StatusCode(StatusCodes.Status200OK, listaOrdenOp);
         }
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("ActualizaOrdenOp")]
         public async Task<IActionResult> ActualizaOrdenOp([FromBody] OrdenOp request)
         {
@@ -79,21 +79,21 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("ORDEN_OP").AsInsert(new
             {
 
-            UUID_OPERADOR = request.UUID_OPERADOR;
-            UUID_ORDEN = request.UUID_ORDEN;
-            UUID_ESTADO = request.UUID_ESTADO;
-            FECHA_ASIGNA = request.FECHA_ASIGNA;
-            FECHA_MODIFICA = request.FECHA_MODIFICA;
-            FECHA_CANCELA = FECHA_CANCELA;
-            DESCRIPCION = request.DESCRIPCION;
-            NO_ORDEN = request.NO_ORDEN;
-            ORDEN_ENTREA = request.ORDEN_ENTREA;
+            UUID_OPERADOR = request.UUID_OPERADOR,
+            UUID_ORDEN = request.UUID_ORDEN,
+            UUID_ESTADO = request.UUID_ESTADO,
+            FECHA_ASIGNA = request.FECHA_ASIGNA,
+            FECHA_MODIFICA = request.FECHA_MODIFICA,
+            FECHA_CANCELA = request.FECHA_CANCELA,
+            DESCRIPCION = request.DESCRIPCION,
+            NO_ORDEN = request.NO_ORDEN,
+            ORDEN_ENTREA = request.ORDEN_ENTREA
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 

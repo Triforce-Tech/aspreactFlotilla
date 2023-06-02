@@ -20,20 +20,20 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("ANALISTA").AsInsert(new
             {
 
-            UUID_USUARIO = request.UUID_USUARIO;
-            ESTADO = request.ESTADO;
-            FECHA_ALTA = request.FECHA_ALTA;
-            FECHA_BAJA = request.FECHA_BAJA;
-            TICKETS_RESUELTOS = request.TICKETS_RESUELTOS;
-            TICKETS_EXITOSOS = request.TICKETS_EXITOSOS;
-            TICKETS_FALLO = request.TICKETS_FALLO;
-            TICKETS_CANCELA = request.TICKETS_CANCELA;
+            UUID_USUARIO = request.UUID_USUARIO,
+            ESTADO = request.ESTADO,
+            FECHA_ALTA = request.FECHA_ALTA,
+            FECHA_BAJA = request.FECHA_BAJA,
+            TICKETS_RESUELTOS = request.TICKETS_RESUELTOS,
+            TICKETS_EXITOSOS = request.TICKETS_EXITOSOS,
+            TICKETS_FALLO = request.TICKETS_FALLO,
+            TICKETS_CANCELA = request.TICKETS_CANCELA,
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -53,8 +53,8 @@ namespace Flotilla_netCORE.Controllers
             "TICKETS_RESUELTOS",
             "TICKETS_EXITOSOS",
             "TICKETS_FALLO",
-            "TICKETS_CANCELA";
-            )
+            "TICKETS_CANCELA"
+            );
             query.From("ANALISTA");
 
             var sql = execute.ExecuterCompiler(query);
@@ -67,7 +67,7 @@ namespace Flotilla_netCORE.Controllers
             return StatusCode(StatusCodes.Status200OK, listaAnalista);
         }
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("actualizaAnalista")]
         public async Task<IActionResult> actualizaAnalista([FromBody] Analista request)
         {
@@ -76,20 +76,20 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("ANALISTA").AsInsert(new
             {
 
-            UUID_USUARIO = request.UUID_USUARIO;
-            ESTADO = request.ESTADO;
-            FECHA_ALTA = request.FECHA_ALTA;
-            FECHA_BAJA = request.FECHA_BAJA;
-            TICKETS_RESUELTOS = request.TICKETS_RESUELTOS;
-            TICKETS_EXITOSOS = request.TICKETS_EXITOSOS;
-            TICKETS_FALLO = request.TICKETS_FALLO;
-            TICKETS_CANCELA = request.TICKETS_CANCELA;
+            UUID_USUARIO = request.UUID_USUARIO,
+            ESTADO = request.ESTADO,
+            FECHA_ALTA = request.FECHA_ALTA,
+            FECHA_BAJA = request.FECHA_BAJA,
+            TICKETS_RESUELTOS = request.TICKETS_RESUELTOS,
+            TICKETS_EXITOSOS = request.TICKETS_EXITOSOS,
+            TICKETS_FALLO = request.TICKETS_FALLO,
+            TICKETS_CANCELA = request.TICKETS_CANCELA,
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
         }
 
     }

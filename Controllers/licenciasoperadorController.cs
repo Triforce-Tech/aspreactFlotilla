@@ -45,7 +45,7 @@ namespace Flotilla_netCORE.Controllers
         //ejemplo
         [HttpPost]
         [Route("Guardalicencia")]
-        public async Task<IActionResult> Guardalicencia([FromBody] LICENCIAS_POR_OPERADOR request)
+        public async Task<IActionResult> Guardalicencia([FromBody] LicenciasPorOperador request)
         {
         ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
 
@@ -66,13 +66,13 @@ namespace Flotilla_netCORE.Controllers
         return StatusCode(StatusCodes.Status200OK, resp );
         }
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("Actualizalicencia")]
-        public async Task<IActionResult> Actualizalicencia([FromBody] LICENCIAS_POR_OPERADOR request)
+        public async Task<IActionResult> Actualizalicencia([FromBody] LicenciasPorOperador request)
         {
         ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
 
-        var query = new Query("LICENCIAS_POR_OPERADOR").AsInsert(new
+        var query = new Query("LicenciasPorOperador").AsInsert(new
             {
                 UUID_OPERADOR = request.UUID_OPERADOR,
                 TIPO = request.TIPO,
@@ -86,7 +86,7 @@ namespace Flotilla_netCORE.Controllers
              var resp = execute.ExecuteDecider(sql3);
 
 
-        return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
         

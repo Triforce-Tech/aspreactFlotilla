@@ -21,17 +21,17 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("RUTA").AsInsert(new
             {
 
-            DESCRIPCION = request.DESCRIPCION;
-            COORDENADA_PUNTO_A = request.COORDENADA_PUNTO_A;
-            COORDENADA_PUNTO_B = request.COORDENADA_PUNTO_B;
-            LINK_GOOGLE = request.LINK_GOOGLE;
-            DISTANCIA_KM = request.DISTANCIA_KM;
+            DESCRIPCION = request.DESCRIPCION,
+            COORDENADA_PUNTO_A = request.COORDENADA_PUNTO_A,
+            COORDENADA_PUNTO_B = request.COORDENADA_PUNTO_B,
+            LINK_GOOGLE = request.LINK_GOOGLE,
+            DISTANCIA_KM = request.DISTANCIA_KM
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -48,8 +48,8 @@ namespace Flotilla_netCORE.Controllers
             "COORDENADA_PUNTO_A",
             "COORDENADA_PUNTO_B",
             "LINK_GOOGLE",
-            "DISTANCIA_KM";
-            )
+            "DISTANCIA_KM"
+            );
             query.From("RUTA");
 
             var sql = execute.ExecuterCompiler(query);
@@ -71,17 +71,17 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("RUTA").AsInsert(new
             {
 
-            DESCRIPCION = request.DESCRIPCION;
-            COORDENADA_PUNTO_A = request.COORDENADA_PUNTO_A;
-            COORDENADA_PUNTO_B = request.COORDENADA_PUNTO_B;
-            LINK_GOOGLE = request.LINK_GOOGLE;
-            DISTANCIA_KM = request.DISTANCIA_KM;
+            DESCRIPCION = request.DESCRIPCION,
+            COORDENADA_PUNTO_A = request.COORDENADA_PUNTO_A,
+            COORDENADA_PUNTO_B = request.COORDENADA_PUNTO_B,
+            LINK_GOOGLE = request.LINK_GOOGLE,
+            DISTANCIA_KM = request.DISTANCIA_KM
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 

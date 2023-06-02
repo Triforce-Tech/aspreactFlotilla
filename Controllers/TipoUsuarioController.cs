@@ -21,18 +21,18 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("TIPO_USUARIO").AsInsert(new
             {
 
-            UUID_NIVEL = request.UUID_NIVEL;
-            TIPO = request.TIPO;
-            DESCRIPCION = request.DESCRIPCION;
-            UUID_ESTADO = request.UUID_ESTADO;
-            FECHA_MODIFICACION = request.FECHA_MODIFICACION;
-            FECHA_CREACION = request.FECHA_CREACION;
+            UUID_NIVEL = request.UUID_NIVEL,
+            TIPO = request.TIPO,
+            DESCRIPCION = request.DESCRIPCION,
+            UUID_ESTADO = request.UUID_ESTADO,
+            FECHA_MODIFICACION = request.FECHA_MODIFICACION,
+            FECHA_CREACION = request.FECHA_CREACION
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -50,8 +50,8 @@ namespace Flotilla_netCORE.Controllers
             "DESCRIPCION",
             "UUID_ESTADO",
             "FECHA_MODIFICACION",
-            "FECHA_CREACION";
-            )
+            "FECHA_CREACION"
+            );
             query.From("TIPO_USUARIO");
 
             var sql = execute.ExecuterCompiler(query);
@@ -63,7 +63,7 @@ namespace Flotilla_netCORE.Controllers
 
             return StatusCode(StatusCodes.Status200OK, listaTipoUsuario);
         }
-        [HttpUpdate]
+        [HttpPut]
         [Route("actualizaTipoUsuario")]
         public async Task<IActionResult> actualizaTipoUsuario([FromBody] TipoUsuario request)
         {
@@ -72,18 +72,18 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("TIPO_USUARIO").AsInsert(new
             {
 
-            UUID_NIVEL = request.UUID_NIVEL;
-            TIPO = request.TIPO;
-            DESCRIPCION = request.DESCRIPCION;
-            UUID_ESTADO = request.UUID_ESTADO;
-            FECHA_MODIFICACION = request.FECHA_MODIFICACION;
-            FECHA_CREACION = request.FECHA_CREACION;
+            UUID_NIVEL = request.UUID_NIVEL,
+            TIPO = request.TIPO,
+            DESCRIPCION = request.DESCRIPCION,
+            UUID_ESTADO = request.UUID_ESTADO,
+            FECHA_MODIFICACION = request.FECHA_MODIFICACION,
+            FECHA_CREACION = request.FECHA_CREACION
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 

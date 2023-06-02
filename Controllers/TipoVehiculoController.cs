@@ -21,19 +21,19 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("TIPO_VEHICULO").AsInsert(new
             {
 
-            MARCA = request.MARCA;
-            MODELO = request.MODELO;
-            AÑO = request.AÑO;
-            DESCRIPCION = request.DESCRIPCION;
-            TIPO = request.TIPO;
-            TIPO_GASOLINA = request.TIPO_GASOLINA;
-            TIPO_DIESEL = request.TIPO_DIESEL;
+            MARCA = request.MARCA,
+            MODELO = request.MODELO,
+            AÑO = request.AÑO,
+            DESCRIPCION = request.DESCRIPCION,
+            TIPO = request.TIPO,
+            TIPO_GASOLINA = request.TIPO_GASOLINA,
+            TIPO_DIESEL = request.TIPO_DISEL
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -45,15 +45,15 @@ namespace Flotilla_netCORE.Controllers
             List<TipoVehiculo> listaTipoVehiculo = new List<TipoVehiculo>();
 
             Query query = new Query();
-            query.Select(
-            "MARCA",
-            "MODELO",
-            "AÑO",
-            "DESCRIPCION",
-            "TIPO",
-            "TIPO_GASOLINA",
-            "TIPO_DIESEL";
-            )
+        query.Select(
+        "MARCA",
+        "MODELO",
+        "AÑO",
+        "DESCRIPCION",
+        "TIPO",
+        "TIPO_GASOLINA",
+        "TIPO_DIESEL"
+        );
             query.From("TIPO_VEHICULO");
 
             var sql = execute.ExecuterCompiler(query);
@@ -67,7 +67,7 @@ namespace Flotilla_netCORE.Controllers
         }
 
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("actualizaTipoVehiculo")]
         public async Task<IActionResult> actualizaTipoVehiculo([FromBody] TipoVehiculo request)
         {
@@ -76,19 +76,19 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("TIPO_VEHICULO").AsInsert(new
             {
 
-            MARCA = request.MARCA;
-            MODELO = request.MODELO;
-            AÑO = request.AÑO;
-            DESCRIPCION = request.DESCRIPCION;
-            TIPO = request.TIPO;
-            TIPO_GASOLINA = request.TIPO_GASOLINA;
-            TIPO_DIESEL = request.TIPO_DIESEL;
+            MARCA = request.MARCA,
+            MODELO = request.MODELO,
+            AÑO = request.AÑO,
+            DESCRIPCION = request.DESCRIPCION,
+            TIPO = request.TIPO,
+            TIPO_GASOLINA = request.TIPO_GASOLINA,
+            TIPO_DIESEL = request.TIPO_DISEL
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+        return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 

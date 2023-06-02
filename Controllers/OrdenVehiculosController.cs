@@ -21,28 +21,28 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("ORDEN_VEHICULOS").AsInsert(new
             {
 
-            UUID_USUARIO = request.UUID_USUARIO;
-            UUID_RUTA = request.UUID_RUTA;
-            UUID_VEHICULO = request.UUID_VEHICULO;
-            KM = request.KM;
-            FECHA_INGRESO = request.FECHA_INGRESO;
-            FECHA_ASIGNACION = reques.FECHA_ASIGNACION;
-            FECHA_MODIFICACION = request.FECHA_MODIFICACION;
-            FECHA_CREACION = request.FECHA_CREACION;
-            UUID_ESTADO = request.UUID_ESTADO;
-            DESCRIPCION = request.DESCRIPCION;
-            EMPRESA = request.EMPRESA;
-            FECHA_ENTREGA = request.FECHA_ENTREGA;
-            FECHA_RECOLECCION = request.FECHA_RECOLECCION;
-            PRECIO = request.PRECIO;
-            UUID_TIPO_PRECIO = request.UUID_TIPO_PRECIO;
+            UUID_USUARIO = request.UUID_USUARIO,
+            UUID_RUTA = request.UUID_RUTA,
+            UUID_VEHICULO = request.UUID_VEHICULO,
+            KM = request.KM,
+            FECHA_INGRESO = request.FECHA_INGRESO,
+            FECHA_ASIGNACION = request.FECHA_ASIGNACION,
+            FECHA_MODIFICACION = request.FECHA_MODIFICACION,
+            FECHA_CREACION = request.FECHA_CREACION,
+            UUID_ESTADO = request.UUID_ESTADO,
+            DESCRIPCION = request.DESCRIPCION,
+            EMPRESA = request.EMPRESA,
+            FECHA_ENTREGA = request.FECHA_ENTREGA,
+            FECHA_RECOLECCION = request.FECHA_RECOLECCION,
+            PRECIO = request.PRECIO,
+            UUID_TIPO_PRECIO = request.UUID_TIPO_PRECIO
 
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -69,8 +69,8 @@ namespace Flotilla_netCORE.Controllers
             "FECHA_ENTREGA",
             "FECHA_RECOLECCION",
             "PRECIO",
-            "UUID_TIPO_PRECIO",
-            )
+            "UUID_TIPO_PRECIO"
+            );
             query.From("ORDEN_VEHICULOS");
 
             var sql = execute.ExecuterCompiler(query);
@@ -83,7 +83,7 @@ namespace Flotilla_netCORE.Controllers
             return StatusCode(StatusCodes.Status200OK, listaOrdenVehiculos);
         }
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("actualizaOrdenVehiculos")]
         public async Task<IActionResult> actualizaOrdenVehiculos([FromBody] OrdenVehiculos request)
         {
@@ -92,28 +92,28 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("ORDEN_VEHICULOS").AsInsert(new
             {
 
-            UUID_USUARIO = request.UUID_USUARIO;
-            UUID_RUTA = request.UUID_RUTA;
-            UUID_VEHICULO = request.UUID_VEHICULO;
-            KM = request.KM;
-            FECHA_INGRESO = request.FECHA_INGRESO;
-            FECHA_ASIGNACION = reques.FECHA_ASIGNACION;
-            FECHA_MODIFICACION = request.FECHA_MODIFICACION;
-            FECHA_CREACION = request.FECHA_CREACION;
-            UUID_ESTADO = request.UUID_ESTADO;
-            DESCRIPCION = request.DESCRIPCION;
-            EMPRESA = request.EMPRESA;
-            FECHA_ENTREGA = request.FECHA_ENTREGA;
-            FECHA_RECOLECCION = request.FECHA_RECOLECCION;
-            PRECIO = request.PRECIO;
-            UUID_TIPO_PRECIO = request.UUID_TIPO_PRECIO;
+            UUID_USUARIO = request.UUID_USUARIO,
+            UUID_RUTA = request.UUID_RUTA,
+            UUID_VEHICULO = request.UUID_VEHICULO,
+            KM = request.KM,
+            FECHA_INGRESO = request.FECHA_INGRESO,
+            FECHA_ASIGNACION = request.FECHA_ASIGNACION,
+            FECHA_MODIFICACION = request.FECHA_MODIFICACION,
+            FECHA_CREACION = request.FECHA_CREACION,
+            UUID_ESTADO = request.UUID_ESTADO,
+            DESCRIPCION = request.DESCRIPCION,
+            EMPRESA = request.EMPRESA,
+            FECHA_ENTREGA = request.FECHA_ENTREGA,
+            FECHA_RECOLECCION = request.FECHA_RECOLECCION,
+            PRECIO = request.PRECIO,
+            UUID_TIPO_PRECIO = request.UUID_TIPO_PRECIO
 
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 

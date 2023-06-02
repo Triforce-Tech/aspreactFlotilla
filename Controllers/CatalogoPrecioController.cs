@@ -20,14 +20,14 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("CATALOGO_PRECIO").AsInsert(new
             {
 
-            UUID_TIPO_VEHICULO = request.UUID_TIPO_VEHICULO;
-            PRECIO_POR_KM = request.PRECIO_POR_KM;
+            UUID_TIPO_VEHICULO = request.UUID_TIPO_VEHICULO,
+            PRECIO_POR_KM = request.PRECIO_POR_KM
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -41,8 +41,8 @@ namespace Flotilla_netCORE.Controllers
             Query query = new Query();
             query.Select(
             "UUID_TIPO_VEHICULO",
-            "PRECIO_POR_KM";
-            )
+            "PRECIO_POR_KM"
+            );
             query.From("CATALOGO_PRECIO");
 
             var sql = execute.ExecuterCompiler(query);
@@ -54,7 +54,7 @@ namespace Flotilla_netCORE.Controllers
             return StatusCode(StatusCodes.Status200OK, listaCatalogoPrecio);
         }
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("actualiza_Catalogo_Preci0")]
         public async Task<IActionResult> actualiza_Catalogo_Preci0([FromBody] CatalogoPrecio request)
         {
@@ -63,14 +63,14 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("CATALOGO_PRECIO").AsInsert(new
             {
 
-            UUID_TIPO_VEHICULO = request.UUID_TIPO_VEHICULO;
-            PRECIO_POR_KM = request.PRECIO_POR_KM;
+            UUID_TIPO_VEHICULO = request.UUID_TIPO_VEHICULO,
+            PRECIO_POR_KM = request.PRECIO_POR_KM
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 

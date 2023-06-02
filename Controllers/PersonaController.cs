@@ -93,8 +93,8 @@ namespace Flotilla_netCORE.Controllers
             "UUID_ESTADO",
             "UUID_TIPO_USUARIO",
             "UUID_USER_SESSION",
-            "USER_NAME";
-            )
+            "USER_NAME"
+            );
             query.From("USUARIO");
 
             var sql = execute.ExecuterCompiler(query);
@@ -107,7 +107,7 @@ namespace Flotilla_netCORE.Controllers
         }
 
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("actualizaPersona")]
         public async Task<IActionResult> actualizaPersona([FromBody] Usuario request)
         {

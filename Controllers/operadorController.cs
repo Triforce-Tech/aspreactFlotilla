@@ -20,17 +20,17 @@ namespace Flotilla_netCORE.Controllers
 
             var query = new Query("OPERADOR").AsInsert(new
             {
-            UUID_USUARIO = request.UUID_USUARIO;
-            FECHA_ALTA = request.FECHA_ALTA;
-            FECHA_BAJA = request.FECHA_BAJA;
-            UUID_LICENCIA = request.UUID_LICENCIA;
-            NO_LICENCIAS = NO_LICENCIAS;
+            UUID_USUARIO = request.UUID_USUARIO,
+            FECHA_ALTA = request.FECHA_ALTA,
+            FECHA_BAJA = request.FECHA_BAJA,
+            UUID_LICENCIA = request.UUID_LICENCIA,
+            NO_LICENCIAS = request.NO_LICENCIAS
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -47,8 +47,8 @@ namespace Flotilla_netCORE.Controllers
             "FECHA_ALTA",
             "FECHA_BAJA",
             "UUID_LICENCIA",
-            "NO_LICENCIAS";
-            )
+            "NO_LICENCIAS"
+            );
             query.From("OPERADOR");
 
             var sql = execute.ExecuterCompiler(query);
@@ -61,7 +61,7 @@ namespace Flotilla_netCORE.Controllers
             return StatusCode(StatusCodes.Status200OK, listaOperador);
         }
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("actualizaOperador")]
         public async Task<IActionResult> actualizaOperador([FromBody] Operador request)
         {
@@ -69,17 +69,17 @@ namespace Flotilla_netCORE.Controllers
 
             var query = new Query("OPERADOR").AsInsert(new
             {
-            UUID_USUARIO = request.UUID_USUARIO;
-            FECHA_ALTA = request.FECHA_ALTA;
-            FECHA_BAJA = request.FECHA_BAJA;
-            UUID_LICENCIA = request.UUID_LICENCIA;
-            NO_LICENCIAS = NO_LICENCIAS;
+            UUID_USUARIO = request.UUID_USUARIO,
+            FECHA_ALTA = request.FECHA_ALTA,
+            FECHA_BAJA = request.FECHA_BAJA,
+            UUID_LICENCIA = request.UUID_LICENCIA,
+            NO_LICENCIAS = request.NO_LICENCIAS
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
    

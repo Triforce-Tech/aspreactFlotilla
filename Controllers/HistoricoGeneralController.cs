@@ -21,19 +21,19 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("HISTORICO_GENERAL").AsInsert(new
             {
 
-            UUID_USUARIO = request.UUID_USUARIO;
-            DESCRIPCION = request.DESCRIPCION;
-            UUID_TRANSACTION = request.UUID_TRANSACTION;
-            FECHA_CREACION = request.FECHA_CREACION;
-            FECHA_MODIFICACION = request.FECHA_MODIFICACION;
-            UUID_CATALOGO = request.UUID_CATALOGO;
-            IP = request.IP;
-            });
+                UUID_USUARIO = request.UUID_USUARIO,
+                DESCRIPCION = request.DESCRIPCION,
+                UUID_TRANSACTION = request.UUID_TRANSACTION,
+                FECHA_CREACION = request.FECHA_CREACION,
+                FECHA_MODIFICACION = request.FECHA_MODIFICACION,
+                UUID_CATALOGO = request.UUID_CATALOG,
+                IP = request.IP
+            }) ;
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -51,8 +51,8 @@ namespace Flotilla_netCORE.Controllers
             "UUID_TRANSACTION",
             "FECHA_CREACION",
             "FECHA_MODIFICACION",
-            "UUID_CATALOGO";
-            )
+            "UUID_CATALOGO"
+            );
             query.From("HISTORICO_GENERAL");
 
             var sql = execute.ExecuterCompiler(query);
@@ -65,7 +65,7 @@ namespace Flotilla_netCORE.Controllers
             return StatusCode(StatusCodes.Status200OK, listaHistoricoGeneral);
         }
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("ActualizaHistoricoGeneral")]
         public async Task<IActionResult> ActualizaHistoricoGeneral([FromBody] HistoricoGeneral request)
         {
@@ -74,19 +74,19 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("HISTORICO_GENERAL").AsInsert(new
             {
 
-            UUID_USUARIO = request.UUID_USUARIO;
-            DESCRIPCION = request.DESCRIPCION;
-            UUID_TRANSACTION = request.UUID_TRANSACTION;
-            FECHA_CREACION = request.FECHA_CREACION;
-            FECHA_MODIFICACION = request.FECHA_MODIFICACION;
-            UUID_CATALOGO = request.UUID_CATALOGO;
-            IP = request.IP;
+            UUID_USUARIO = request.UUID_USUARIO,
+            DESCRIPCION = request.DESCRIPCION,
+            UUID_TRANSACTION = request.UUID_TRANSACTION,
+            FECHA_CREACION = request.FECHA_CREACION,
+            FECHA_MODIFICACION = request.FECHA_MODIFICACION,
+            UUID_CATALOGO = request.UUID_CATALOG,
+            IP = request.IP,
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
         

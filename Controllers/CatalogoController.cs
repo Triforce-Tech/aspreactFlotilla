@@ -20,17 +20,17 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("CATALOGO").AsInsert(new
             {
 
-            CATALOGO = request.CATALOGO;
-            DESCRIPCION = request.DESCRIPCION;
-            UUID_ESTADO = request.UUID_ESTADO;
-            FECHA_MODIFICACION_CATALOGO = request.FECHA_MODIFICACION_CATALOGO;
-            FECHA_CREACION = request.FECHA_CREACION;
+            CATALOGO = request.CATALOGO,
+            DESCRIPCION = request.DESCRIPCION,
+            UUID_ESTADO = request.UUID_ESTADO,
+            FECHA_MODIFICACION_CATALOGO = request.FECHA_MODIFICACION_CATALOGO,
+            FECHA_CREACION = request.FECHA_CREACION
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
@@ -47,8 +47,8 @@ namespace Flotilla_netCORE.Controllers
             "DESCRIPCION",
             "UUID_ESTADO",
             "FECHA_MODIFICACION",
-            "FECHA_CREACION";
-            )
+            "FECHA_CREACION"
+            );
             query.From("CATALOGO");
 
             var sql = execute.ExecuterCompiler(query);
@@ -61,7 +61,7 @@ namespace Flotilla_netCORE.Controllers
             return StatusCode(StatusCodes.Status200OK, listaCatalogo);
         }
 
-        [HttpUpdate]
+        [HttpPut]
         [Route("actualizaCatalogo")]
         public async Task<IActionResult> actualizaCatalogo([FromBody] Catalogo request)
         {
@@ -70,17 +70,17 @@ namespace Flotilla_netCORE.Controllers
             var query = new Query("CATALOGO").AsInsert(new
             {
 
-            CATALOGO = request.CATALOGO;
-            DESCRIPCION = request.DESCRIPCION;
-            UUID_ESTADO = request.UUID_ESTADO;
-            FECHA_MODIFICACION_CATALOGO = request.FECHA_MODIFICACION_CATALOGO;
-            FECHA_CREACION = request.FECHA_CREACION;
+            CATALOGO = request.CATALOGO ,
+            DESCRIPCION = request.DESCRIPCION,
+            UUID_ESTADO = request.UUID_ESTADO,
+            FECHA_MODIFICACION_CATALOGO = request.FECHA_MODIFICACION_CATALOGO,
+            FECHA_CREACION = request.FECHA_CREACION
             });
 
             var sql = execute.ExecuterCompiler(query);
             var resp = execute.ExecuteDecider(sql);
 
-            return StatusCode(StatusCodes.Status200OK, resp )
+            return StatusCode(StatusCodes.Status200OK, resp);
 
         }
 
