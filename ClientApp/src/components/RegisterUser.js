@@ -1,25 +1,25 @@
 /*import logo from './logo.svg';*/
-import { useState, useEffect } from 'react';
-import './styles.css';
-import NavigationBar from './NavigationBar';
-import Form from 'react-bootstrap/Form';
-import ReactDOM from "react-dom/client";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Nav from 'react-bootstrap/Nav';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
-import { useSession } from 'react-session';
+import { useEffect, useState } from 'react';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './styles.css';
+import Toast from 'react-bootstrap/Toast';
+
+
+
+
 
 
 function RegisterUser() {
 
-     
+
     const [username, setUsername] = useState('');
     const [PRIMER_NOMBRE, setPRIMER_NOMBRE] = useState('');
     const [SEGUNDO_NOMBRE, setSEGUNDO_NOMBRE] = useState('');
@@ -38,7 +38,12 @@ function RegisterUser() {
         event.preventDefault();
         // Aquí podrías enviar los datos del formulario al servidor
     };
-    
+
+    //mensajes
+
+   
+
+
     const [selectedOption, setSelectedOption] = useState('');
     const [data, setData] = useState([]);
 
@@ -51,17 +56,38 @@ function RegisterUser() {
     function handleSelectChange(event) {
         setSelectedOption(event.target.value);
     }
+
+
   
 
-
-        function handleSaveClick() {
-            //console.log(`Saving ${field1} and ${field2}`);
-            saveusuario();
-         
-            // Hacer una solicitud HTTP para guardar los datos
-           
+   
+    function valida() {
+        axios.post("/api/validaciones/validadispo",
+            {
+                id: "vacio",
+                value: username,
+            }).then(response => {
+                console.log('Data saved successfully!');
+                console.log(response.data);
+                var val = response.data;
+                if (val === "No") {
+                    alert("Error usuario no disponible");
+                }
+                if (val === "Ok") {
+                    alert("Inicia el guardado");
+                 saveusuario();
+                };
+                toast.success('¡Operación exitosa!', {
+                    position: toast.POSITION.TOP_CENTER
+                });
+            })
+                .catch(error => {
+                    console.error('Error saving data:');
+                    console.error(error);
+                })
+                
+    
     }
-
     function savepersona() {
         const fechaEspecifica = new Date('2022-05-01T12:00:00Z');
 
@@ -97,37 +123,42 @@ function RegisterUser() {
                 console.error(error);
             });
     }
-
     function saveusuario() {
 
-       
 
-         axios.post('/api/usuario/Guardarusuario', {
-                uuid: "",
-                usuario: username,
-                password: password,
-                UUID_ESTADO: ""
 
-            })
-            
-                .then(response => {
-                    console.log('Data saved successfully!');
-                    console.log(response.data);
-                    savepersona();
-                    toast.success('¡Operación exitosa!', {
-                        position: toast.POSITION.TOP_CENTER
-                    });
-                })
-                .catch(error => {
-                    console.error('Error saving data:');
-                    console.error(error);
+        axios.post('/api/usuario/Guardarusuario', {
+            uuid: "",
+            usuario: username,
+            password: password,
+            UUID_ESTADO: ""
+
+        })
+
+            .then(response => {
+                console.log('Data saved successfully!');
+                console.log(response.data);
+                savepersona();
+                toast.success('¡Operación exitosa!', {
+                    position: toast.POSITION.TOP_CENTER
                 });
+            })
+            .catch(error => {
+                console.error('Error saving data:');
+                console.error(error);
+            });
     }
     const [show, setShow] = useState(false);
-   
-    
-   
-    
+
+
+    function handleSaveClick() {
+        //console.log(`Saving ${field1} and ${field2}`);
+       
+        valida();
+        // Hacer una solicitud HTTP para guardar los datos
+
+    }
+
 
     return (
 
@@ -138,11 +169,11 @@ function RegisterUser() {
             <h1>Registrarse</h1>
 
 
-           
-            <Form.Group className="mb-3" onSubmit={handleSubmit}>
-                 
 
-              
+            <Form.Group className="mb-3" onSubmit={handleSubmit}>
+
+
+
                 <Row>
 
 
@@ -188,8 +219,8 @@ function RegisterUser() {
                         />
                     </Col>
 
-                   
-                    
+
+
                 </Row>
                 <Row>
                     <Col>
@@ -226,7 +257,7 @@ function RegisterUser() {
                             value={phonenumber}
                             onChange={(event) => setPhonenumber(event.target.value)}
                         /></Col>
-                    
+
 
                 </Row>
 
@@ -241,15 +272,15 @@ function RegisterUser() {
                             onChange={(event) => setCompany(event.target.value)}
                         /></Col>
                     <Col>
-                        
+
 
                         <fieldset enabled>
-                           
+
                             <Form.Group className="mb-3">
 
                                 <div>
                                     <Form.Label htmlFor="disabledSelect">Tipo de Usuario:</Form.Label>
-                                    <Form.Select type="UUIDTIPO" id="UUIDTIPO" name="UUIDTIPO" value={selectedOption} onChange={(handleSelectChange) }>
+                                    <Form.Select type="UUIDTIPO" id="UUIDTIPO" name="UUIDTIPO" value={selectedOption} onChange={(handleSelectChange)}>
                                         <option value="">Seleccione el estado</option>
                                         {data.map(user => (
                                             <option key={user.uuid} value={user.uuid}>{user.descripcion}</option>
@@ -257,9 +288,9 @@ function RegisterUser() {
                                     </Form.Select>
                                 </div>
                             </Form.Group>
-                          
+
                         </fieldset>
-                       </Col>
+                    </Col>
                 </Row>
 
                 <Row>
@@ -269,10 +300,10 @@ function RegisterUser() {
                             name="username"
                             value={username}
                             onChange={(event) => setUsername(event.target.value)} />
-                       
+
                     </Col>
                     <Col>
-                         
+
                         <Form.Label htmlFor="password">Contraseña:</Form.Label>
                         <Form.Control
                             type="password"
@@ -298,20 +329,21 @@ function RegisterUser() {
                     <Col>
 
                         <>
-                            <Alert show={show}  variant="success">
+                            <Alert show={show} variant="success">
                                 <Alert.Heading>Success!</Alert.Heading>
                                 <p>
-                                    
+
                                 </p>
                                 <hr />
                                 <div className="d-flex justify-content-end">
                                     <button onClick={() => setShow(false)} variant="outline-success">
-                                        Close me y'all!
+                                       
                                     </button>
+                                   
                                 </div>
                             </Alert>
 
-                            {!show && <Button onClick={() => setShow(true)} onClick={handleSaveClick}>Registrarse</Button>}
+                            {!show && <Button onClick={() => setShow(true)}  onClick={handleSaveClick}>Registrarse</Button>}
                         </>
 
 

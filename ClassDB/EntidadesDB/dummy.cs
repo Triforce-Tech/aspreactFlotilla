@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ClassDB.EntidadesDB
 {
-    public class dummy
+    public partial class dummy
     {
-        public string id;
-        public string value;
+        public string id { get; set; }
+        public string value { get; set; }
+        
     }
 }
