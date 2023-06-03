@@ -12,11 +12,11 @@ namespace ClassDB.EntidadesDB
         public string UUID { get; set; }
         public string MARCA { get; set; }
         public string MODELO { get; set; }
-        public DateTime AÑO { get; set; }
+        public DateTime ? AÑO { get; set; }
         public string DESCRIPCION { get; set; }
         public string TIPO { get; set; }
-        public string TIPO_GASOLINA { get; set; }
-        public string TIPO_DISEL { get; set; }
+        public int TIPO_GASOLINA { get; set; }
+        public int TIPO_DISEL { get; set; }
 
     }
 }

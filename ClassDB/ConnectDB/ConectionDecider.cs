@@ -37,27 +37,71 @@ namespace ClassDB.ConnectDB.ConectionDecider
             }
 
             OraConnect ora = new OraConnect();
+            PostgresSqlConnect psg = new PostgresSqlConnect();
+
+            switch (DbmsProvider)
+            {
+                case "oracle":
+                    {
+
+                        try
+                        {
+                            var STR = Environment.GetEnvironmentVariable("STR");
+
+
+                            Console.WriteLine(STR);
+
+
+                            ora.ConnectToDatabase(STR);
+
+
+                        }
+                        catch
+                        (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+
+                        }
+
+
+                        break;
+                    }
+                case "postgresql":
+                    {
+                        var STR = Environment.GetEnvironmentVariable("STR");
+
+                        Console.WriteLine(STR);
+
+                        //psg.
+
+
+
+                        break;
+                    }
+                case "sqlserver":
+                    {
+
+                        break;
+                    }
+                default: 
+                    {
+                        if( string.IsNullOrEmpty(DbmsProvider)== false && DbmsProvider.Length > 0)
+                        {
+                            Console.WriteLine("El dbmsprovider tiene otro parametro :" + DbmsProvider.ToString());
+                            break;
+                        }else
+                        {
+                            Console.WriteLine("El dbmsprovider no esta configurado :" + null);
+                            break;
+                        }
+                     
+                    }
+
+            }
 
             if (DbmsProvider == "oracle")
             {
-                try
-                {
-                    var STR = Environment.GetEnvironmentVariable("STR");
-                   
-
-                    Console.WriteLine(STR);
-
-
-                    ora.ConnectToDatabase(STR);
-
-
-                }
-                catch
-                (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-
-                }
+               
 
             }else
             {

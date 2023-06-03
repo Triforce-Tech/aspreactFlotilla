@@ -46,13 +46,14 @@ namespace Flotilla_netCORE.Controllers
 
             Query query = new Query();
         query.Select(
+         "UUID",
         "MARCA",
         "MODELO",
         "AÑO",
         "DESCRIPCION",
         "TIPO",
         "TIPO_GASOLINA",
-        "TIPO_DIESEL"
+        "TIPO_DISEL"
         );
             query.From("TIPO_VEHICULO");
 
@@ -91,6 +92,31 @@ namespace Flotilla_netCORE.Controllers
         return StatusCode(StatusCodes.Status200OK, resp);
 
         }
+
+        [HttpPost]
+        [Route("marca")]
+        public async Task<IActionResult> marca([FromBody] TipoVehiculo request)
+        {
+            ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
+            List<TipoVehiculo> listaTipoVehiculo = new List<TipoVehiculo>();
+
+            Query query = new Query();
+            query.Select(
+            "MARCA", "MODELO", "AÑO");
+            query.From("TIPO_VEHICULO").Where("UUID","=", request.UUID).Limit(1);
+
+            var sql = execute.ExecuterCompiler(query);
+
+            execute.DataReader(sql.ToString(), reader =>
+            {
+                listaTipoVehiculo = DataReaderMapper<TipoVehiculo>.MapToList(reader);
+            });
+
+            return StatusCode(StatusCodes.Status200OK, listaTipoVehiculo);
+        }
+
+
+
 
     }
 }

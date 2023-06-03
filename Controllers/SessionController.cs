@@ -38,8 +38,7 @@ namespace Flotilla_netCORE.Controllers
                 HttpContext.Session.SetString("userSession", userSession.UUID);
 
             }
-            //return HttpContextResponse.Redirect("http://localhost:44422/home");
-            Response.Redirect("http://192.168.0.11:44422/home");
+          
             return StatusCode(StatusCodes.Status200OK, "ok");
             
             //var valor = HttpContext.Session.GetString("UserSession");

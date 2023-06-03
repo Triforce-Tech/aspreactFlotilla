@@ -72,6 +72,9 @@ function Login() {
 
     
 
+
+    
+
     const [show, setShow] = useState(false);
 
     const [value1, setvalue1] = useState(false);
@@ -90,7 +93,7 @@ function Login() {
                 console.log('login correcto');
                 console.log(response.data);
 
-                if (data.length === 2) {
+                if (data.length === 1) {
                     redirigir();
 
                 } else {
