@@ -163,6 +163,15 @@ namespace ClassDB.ConnectDB
 
         public void DataReader(string cmdQuery, Action<DbDataReader> action)
         {
+
+
+
+
+
+
+
+
+
             try
             {
                 if (ora.OracleContext.State == ConnectionState.Closed)

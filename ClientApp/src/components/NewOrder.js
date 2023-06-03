@@ -9,9 +9,6 @@ import { useSession } from 'react-session';
 import ShipTo from './ShipTo';
 
 
-
-
-
 function NewOrder() {
     const [activeTab, setActiveTab] = useState('filldetails');
 

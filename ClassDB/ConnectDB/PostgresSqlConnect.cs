@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Npgsql;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -12,7 +13,18 @@ namespace ClassDB.ConnectDB
 {
     internal class PostgresSqlConnect
     {
-      
+        public string pgstringconnection { get; set; }
+        public bool psgConnect(string strconnection )
+        {
+            using (var connection = new NpgsqlConnection(strconnection))
+            {
+                connection.Open();
+
+                pgstringconnection = connection.ConnectionString;
+                return true;
+            }
+
+        }
         public int execute(string sqlexecute)
         {
 
@@ -20,7 +32,7 @@ namespace ClassDB.ConnectDB
             connection.Open();
 
             NpgsqlCommand command = new NpgsqlCommand(sqlexecute, connection);
-            NpgsqlDataReader dataReader = command.ExecuteReader();
+            command.ExecuteReader();
             connection.Close();
             return 1;
         }
@@ -36,9 +48,12 @@ namespace ClassDB.ConnectDB
 
             DataTable dt =new DataTable();
 
+            dt.Rows.Add(dataReader);
 
             return dt;
         }
+
+      
 
 
 
