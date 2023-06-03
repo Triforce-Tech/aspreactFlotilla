@@ -113,6 +113,7 @@ function RegisterVehicle() {
         <Container>
         
             {mostrarContenido ? (
+
       <div><Container>
       <h1>Registrar Vehiculo</h1>
       <Form.Group className="mb-3" onSubmit={handleSubmit}>
