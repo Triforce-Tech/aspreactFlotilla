@@ -96,9 +96,23 @@ function RegisterVehicle() {
     }, []);
 
 
+    const [data1, setData1] = useState([null]);
 
+    useEffect(() => {
+        fetch('/api/session/consultasession')
+            .then(response => response.json())
+            .then(json => setData1(json));
+    }, []);
+    var mostrarContenido = false;
 
-  return (
+    if (data1.length === 2) {
+        mostrarContenido = true;
+    }
+
+    return (
+        <Container>
+        
+            {mostrarContenido ? (
       <div><Container>
       <h1>Registrar Vehiculo</h1>
       <Form.Group className="mb-3" onSubmit={handleSubmit}>
@@ -197,7 +211,18 @@ function RegisterVehicle() {
               </Row>
        </Form.Group>
       </Container>
-      </div>
+            </div>
+
+            ) : (
+
+                <p></p>
+            )
+            }
+            
+
+        </Container>
+
+
   );
 }
 
