@@ -30,6 +30,7 @@ const context = [
     "/api/vehicle",
     "/api/registro",
     "/api/persona",
+    "/api/validaciones"
 ];
 
 
