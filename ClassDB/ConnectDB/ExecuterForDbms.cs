@@ -1,5 +1,8 @@
 ﻿using ClassDB.SqlKataTools;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Npgsql;
 using Oracle.ManagedDataAccess.Client;
 using SqlKata;
 using System;
@@ -11,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ClassDB.ConnectDB.OraConnect;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ClassDB.ConnectDB
 {
@@ -127,13 +131,13 @@ namespace ClassDB.ConnectDB
                     case "sqlserver":
                         {
 
-                            var r = ExecuterOracle(Query);
+                            var r = ExecuterSQL(Query);
                             return r;
                         }
 
-                        case "postgresql":
+                    case "postgresql":
                         {
-                            var r = ExecuterOracle(Query);
+                            var r = ExecuterPSG(Query);
                             return r;
                         }
 
@@ -153,86 +157,262 @@ namespace ClassDB.ConnectDB
         public bool ExecuterSQL(string sqlQuery)
         {
 
-            return true;
+            var STR = Environment.GetEnvironmentVariable("STR");
+
+
+            Console.WriteLine(STR);
+
+            try
+            {
+                using (var connection = new SqlConnection(STR))
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(sqlQuery, connection);
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = sqlQuery;
+                    command.ExecuteReader();
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message + " cmdquery " + sqlQuery);
+                return false;
+            }
+
+
+
+
         }
         public bool ExecuterPSG(string sqlQuery)
         {
+            try
+            {
+                var STR = Environment.GetEnvironmentVariable("STR");
 
-            return true;
+
+                Console.WriteLine(STR);
+
+                NpgsqlConnection connection = new NpgsqlConnection(STR);
+                connection.Open();
+
+                NpgsqlCommand command = new NpgsqlCommand(sqlQuery, connection);
+                command.ExecuteReader();
+                connection.Close();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error : * ---- " + sqlQuery + " ---- *" + ex.Message);
+                return false;
+            }
+
         }
 
         public void DataReader(string cmdQuery, Action<DbDataReader> action)
         {
 
 
+            var DbmsProvider = Environment.GetEnvironmentVariable("PROVIDER");
 
 
 
 
-
-
-
-            try
+            switch (DbmsProvider)
             {
-                if (ora.OracleContext.State == ConnectionState.Closed)
-                {
-                    var STR = Environment.GetEnvironmentVariable("STR");
-
-
-                    Console.WriteLine(STR);
-
-                    if (STR != null)
+                case "oracle":
                     {
-
-                        OraConnect ora = new OraConnect();
-                        Console.WriteLine("pass");
-
-                        ora.ConnectToDatabase(STR);
-
-                        OracleCommand ora_Command = new OracleCommand(cmdQuery, ora.OracleContext);
-                        ora_Command.CommandType = CommandType.Text;
-                        using (OracleDataReader reader = ora_Command.ExecuteReader())
+                        try
                         {
-                            action(reader);
-                        }
-                        string log = "success " + cmdQuery.ToString();
+                            if (ora.OracleContext.State == ConnectionState.Closed)
+                            {
+                                var STR = Environment.GetEnvironmentVariable("STR");
 
-                        Console.WriteLine("success " + cmdQuery.ToString());
-                    }
-                    else
-                    {
-                        OracleCommand ora_Command = new OracleCommand(cmdQuery, ora.OracleContext);
-                        ora_Command.CommandType = CommandType.Text;
-                        using (OracleDataReader reader = ora_Command.ExecuteReader())
+
+                                Console.WriteLine(STR);
+
+                                if (STR != null)
+                                {
+
+                                    OraConnect ora = new OraConnect();
+                                    Console.WriteLine("pass");
+
+                                    ora.ConnectToDatabase(STR);
+
+                                    OracleCommand ora_Command = new OracleCommand(cmdQuery, ora.OracleContext);
+                                    ora_Command.CommandType = CommandType.Text;
+                                    using (OracleDataReader reader = ora_Command.ExecuteReader())
+                                    {
+                                        action(reader);
+                                    }
+                                    string log = "success " + cmdQuery.ToString();
+
+                                    Console.WriteLine("success " + cmdQuery.ToString());
+                                }
+                                else
+                                {
+                                    OracleCommand ora_Command = new OracleCommand(cmdQuery, ora.OracleContext);
+                                    ora_Command.CommandType = CommandType.Text;
+                                    using (OracleDataReader reader = ora_Command.ExecuteReader())
+                                    {
+                                        action(reader);
+                                    }
+                                    string log = "success " + cmdQuery.ToString();
+
+                                    Console.WriteLine("success " + cmdQuery.ToString());
+                                }
+                            }
+                            else
+                            {
+                                OracleCommand ora_Command = new OracleCommand(cmdQuery, ora.OracleContext);
+                                ora_Command.CommandType = CommandType.Text;
+                                using (OracleDataReader reader = ora_Command.ExecuteReader())
+                                {
+                                    action(reader);
+                                }
+                                string log = "success " + cmdQuery.ToString();
+
+                                Console.WriteLine("success " + cmdQuery.ToString());
+                            }
+                            break;
+
+                        }
+
+                        catch (Exception ex)
                         {
-                            action(reader);
+                            string log = "error " + cmdQuery + " " + ex.Message;
+
+                            Console.WriteLine(log);
+                            break;
                         }
-                        string log = "success " + cmdQuery.ToString();
-
-                        Console.WriteLine("success " + cmdQuery.ToString());
                     }
-                }else
-                {
-                    OracleCommand ora_Command = new OracleCommand(cmdQuery, ora.OracleContext);
-                    ora_Command.CommandType = CommandType.Text;
-                    using (OracleDataReader reader = ora_Command.ExecuteReader())
+
+
+                case "postgresql":
                     {
-                        action(reader);
+                        try
+                        {
+                            var STR = Environment.GetEnvironmentVariable("STR");
+                            NpgsqlConnection npgsql = new NpgsqlConnection(STR);
+
+
+                            if (npgsql.State == ConnectionState.Closed)
+                            {
+
+
+
+                                Console.WriteLine(STR);
+
+                                if (STR != null)
+                                {
+                                    npgsql.Open();
+                                    Console.WriteLine("pass");
+
+                                    NpgsqlCommand command = new NpgsqlCommand(cmdQuery, npgsql);
+
+                                    command.CommandType = CommandType.Text;
+                                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                                    {
+                                        action(reader);
+                                    }
+                                    string log = "success " + cmdQuery.ToString();
+
+                                    Console.WriteLine("success " + cmdQuery.ToString());
+                                }
+                                else
+                                {
+                                    NpgsqlCommand command = new NpgsqlCommand(cmdQuery, npgsql);
+
+                                    command.CommandType = CommandType.Text;
+                                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                                    {
+                                        action(reader);
+                                    }
+                                    string log = "success " + cmdQuery.ToString();
+
+                                    Console.WriteLine("success " + cmdQuery.ToString());
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                NpgsqlCommand command = new NpgsqlCommand(cmdQuery, npgsql);
+
+                                command.CommandType = CommandType.Text;
+                                using (NpgsqlDataReader reader = command.ExecuteReader())
+                                {
+                                    action(reader);
+                                }
+                                string log = "success " + cmdQuery.ToString();
+
+                                Console.WriteLine("success " + cmdQuery.ToString());
+
+                                break;
+                            }
+
+                        }
+
+                        catch (Exception ex)
+                        {
+                            string log = "error " + cmdQuery + " " + ex.Message;
+
+                            Console.WriteLine(log);
+                            break;
+                        }
+
                     }
-                    string log = "success " + cmdQuery.ToString();
+                case "sqlserver":
+                    {
+                        var STR = Environment.GetEnvironmentVariable("STR");
 
-                    Console.WriteLine("success " + cmdQuery.ToString());
-                }
+                        Console.WriteLine(STR);
 
-            }
+                        try
+                        {
+                            using (var connection = new SqlConnection(STR))
+                            {
+                                if (connection.State == ConnectionState.Closed)
+                                {
+                                    connection.Open();
+                                }
 
-            catch (Exception ex)
-            {
-                string log = "error " + cmdQuery + " " + ex.Message;
+                                SqlCommand command = new SqlCommand(cmdQuery, connection);
+                                command.CommandType = CommandType.Text;
+                                command.CommandText = cmdQuery;
 
-                Console.WriteLine(log);
+                                using (SqlDataReader reader = command.ExecuteReader())
+
+                                {
+                                    action(reader);
+                                }
+
+                                string log = "success " + cmdQuery.ToString();
+
+                                Console.WriteLine("success " + cmdQuery.ToString());
+
+                                break;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            string log = "error ** " + cmdQuery.ToString();
+
+                            Console.WriteLine("error ** " + cmdQuery.ToString());
+
+                            break;
+                        }
+                    }
             }
         }
+
+
+
+
+
     }
 }
+
 

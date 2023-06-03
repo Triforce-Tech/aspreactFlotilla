@@ -23,6 +23,34 @@ import FillDetails from './FillDetails';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const redirigir = () => {
+    window.location.href = 'http://localhost:44422/';
+};
+
+const handleSubmit = (event) => {
+    event.preventDefault();
+    // Aquí podrías enviar los datos del formulario al servidor
+};
+
+function salir() {
+
+    axios.post("/api/cerrarsession/salir", {
+        id: "",
+        value : "",
+    })
+        .then(response => {
+            console.log('Data saved successfully!');
+            console.log(response.data);
+           
+            redirigir();
+        })
+        .catch(error => {
+            console.error('Error saving data:');
+            console.error(error);
+        });
+
+
+}
 
 
 
@@ -59,7 +87,7 @@ function NavigationBar() {
                                     <NavDropdown.Item as={Link} to={"/neworder"}>Nueva Orden</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to={"/vieworder"}>Ver Ordenes</NavDropdown.Item>
                                 </NavDropdown>
-                                <Nav.Link href="">Cerrar Sesión</Nav.Link>
+                                    <Nav.Link href="" onClick={salir}>Cerrar Sesión</Nav.Link>
                             </Nav>
                         </Container>
                     </Navbar>  
