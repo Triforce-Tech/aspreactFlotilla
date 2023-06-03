@@ -43,6 +43,8 @@ namespace ClassDB.SqlKataTools
 
             var stringquery = queryResult.ToString();
 
+            stringquery = stringquery.Replace("FROM", "FROM \"FNREACT\".");
+
       
 
 

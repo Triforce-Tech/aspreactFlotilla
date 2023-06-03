@@ -6,8 +6,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
-        "PROVIDER": "oracle",
-        "STR": "CONNECTION TIMEOUT=120;PASSWORD=Andromeda;DATA SOURCE= (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.13)(PORT = 1521))(CONNECT_DATA = (SID =ORCL ))) ;USER ID=FNREACT"
+        "PROVIDER": "postgresql",
+        "STR": "Host=192.168.0.13;Port=5432;Database=FNREACT;Username=postgres;Password=Andromeda///;"
       },
       "applicationUrl": "http://localhost:5119",
       "nativeDebugging": false

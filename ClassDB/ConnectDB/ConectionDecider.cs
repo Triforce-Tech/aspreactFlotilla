@@ -99,15 +99,7 @@ namespace ClassDB.ConnectDB.ConectionDecider
 
             }
 
-            if (DbmsProvider == "oracle")
-            {
-               
-
-            }else
-            {
-                Console.WriteLine("dbmsprovider no configurado");
-            }    
-
+          
 
 
             // If we've created it, now delete it.

@@ -76,7 +76,7 @@ function Login() {
 
     const [show, setShow] = useState(false);
 
-    const [value1, setvalue1] = useState(false);
+    //const [value1, setvalue1] = useState(false);
 
 
     
@@ -99,7 +99,7 @@ function Login() {
                 } else {
                     console.log('sin acceso');
                     console.log(data);
-                    setvalue1.value = true;
+                    //setvalue1.value = true;
                 }
              
                 
@@ -109,7 +109,7 @@ function Login() {
                 });
             })
             .catch(error => {
-                value1 = true;
+                //value1 = true;
                 console.error('Error login:');
                 console.error(error);
             });

@@ -3,10 +3,7 @@
     "ClassDB": {
       "commandName": "Project",
       "environmentVariables": {
-        "dmbsprovider": "oracle",
-        "user": "FLOTILLANET",
-        "pass": "Andromeda",
-        "sid": "orcl"
+        "dmbsprovider": "postgresql"
       },
       "remoteDebugEnabled": false
     }
