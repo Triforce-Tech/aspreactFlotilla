@@ -4,6 +4,7 @@ const { env } = require('process');
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
     env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'http://localhost:44422';
 
+
 const context = [
     "/weatherforecast",
     "/api/session",
@@ -30,6 +31,7 @@ const context = [
     "/api/vehicle",
     "/api/registro",
     "/api/persona",
+    "/api/cerrarsession",
 ];
 
 

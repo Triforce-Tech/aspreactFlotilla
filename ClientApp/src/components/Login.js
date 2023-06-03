@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
 import { ToastContainer, toast } from 'react-toastify';
-
+import Cookies from 'js-cookie';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 import { useSession } from 'react-session';
@@ -61,21 +61,22 @@ function Login() {
     }
 
     /*setSession('valorDeMiVariable')*/
-
+ 
     const [data, setData] = useState([null]);
-
     useEffect(() => {
         fetch('/api/session/consultasession')
             .then(response => response.json())
             .then(json => setData(json));
     }, []);
-
+  
     
 
     const [show, setShow] = useState(false);
 
     const [value1, setvalue1] = useState(false);
 
+
+    
     function iniciarsesion() {
 
         axios.post('/api/session/guardarsession', {
@@ -89,8 +90,7 @@ function Login() {
             .then(response => {
                 console.log('login correcto');
                 console.log(response.data);
-
-                if (data.length === 2) {
+                if (response.data === 'ok') {
                     redirigir();
 
                 } else {
@@ -112,6 +112,7 @@ function Login() {
             });
     }
 
+  
 
 
     return (

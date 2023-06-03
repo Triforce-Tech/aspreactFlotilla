@@ -33,24 +33,25 @@ namespace Flotilla_netCORE.Controllers
             {
                 userSession = DataReaderMapper<UserSession>.MapToObject(reader);
             });
+            var ok = "";
             if (userSession != null)
             {
                 HttpContext.Session.SetString("userSession", userSession.UUID);
-
+                ok = "ok";
             }
-            //return HttpContextResponse.Redirect("http://localhost:44422/home");
-            Response.Redirect("http://192.168.0.11:44422/home");
-            return StatusCode(StatusCodes.Status200OK, "ok");
-            
+           
+            return StatusCode(StatusCodes.Status200OK, ok);
+
             //var valor = HttpContext.Session.GetString("UserSession");
             //acceder a la variable de la sesion dentro de c#
 
         }
 
-      
+        
+
         [HttpGet]
         [Route("consultasession")]
-        public async Task<IActionResult> consultasession()
+        public async Task<IActionResult> consultasession() 
         {
 
             var variableValue = HttpContext.Session.GetString("userSession");
@@ -69,6 +70,10 @@ namespace Flotilla_netCORE.Controllers
 
 
         }
+       
+
+
+
 
     }
 
