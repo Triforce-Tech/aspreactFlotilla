@@ -154,25 +154,23 @@ function HOME() {
              
        
             <Form.Group className="mb-3" onSubmit={handleSubmit}>
-                <h1>MIS ORDENES</h1>
+                <h1>Vehiculos</h1>
                 <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>ORDEN</th>
-                            <th>DESC</th>
+                            <th>UUID</th>
+                            <th>PLACA</th>
+                            <th>DESCRIPCION</th>
+                            <th>KILOMETRAJE</th>
                         </tr>
                     </thead>
                     <tbody>
                         {data1.map((item) => (
                             <tr key={item.uuid}>
                                 <td>{item.uuid}</td>
-                                <td>{item.km}</td>
-                                <td>{item.fechA_ENTREGA}</td>
-                                <td>{item.fechA_RECOLECCION}</td>
+                                <td>{item.placa}</td>
                                 <td>{item.descripcion}</td>
-                                <td>{item.empresa}</td>
-                                <td>{item.precio}</td>
+                                <td>{item.kilometrajE_ACTUAL}</td>
                                 {/* Añade más celdas según las propiedades de tu objeto JSON */}
                             </tr>
                         ))}

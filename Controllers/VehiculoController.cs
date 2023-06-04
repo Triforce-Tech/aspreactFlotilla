@@ -38,9 +38,9 @@ namespace Flotilla_netCORE.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Lista")]
-        public async Task<IActionResult> Lista()
+        public async Task<IActionResult> Lista([FromBody] dummy request)
         {
             ExecuteFromDBMSProvider execute = new ExecuteFromDBMSProvider();
             List<Vehiculo> listaVehiculo = new List<Vehiculo>();

@@ -16,7 +16,7 @@ namespace ClassDB.EntidadesDB
         public DateTime FECHA_CARGA { get; set; }
         public DateTime FECHA_MODIFICACION { get; set; }
         public string UUID_ESTADO { get; set; }
-        public double KILOMETRAJE_ACTUAL { get; set; }
+        public decimal KILOMETRAJE_ACTUAL { get; set; }
 
     }
 }

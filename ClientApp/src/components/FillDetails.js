@@ -18,13 +18,20 @@ function FillDetails() {
     const [driver, setDriver] = useState('');
     const [description, setDescription] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
+    const [data1, setData1] = useState([]);
 
-    useEffect(() => {
-        fetch('/api/vehicle/Lista')
+
+
+
+    function listarvehiculo() {
+        axios.post('/api/vehiculo/Lista', id: "", value: "")
             .then(response => response.json())
-            .then(json => setData(json));
+            .then(json => setData1(json));
     }, []);
 
+
+    }
+        
     useEffect(() => {
         fetch('/api/operador/Lista')
             .then(response => response.json())
@@ -110,7 +117,7 @@ function FillDetails() {
 
 
                                 {
-                                    (data.length < 1) ?
+                                    (data1.length < 1) ?
                                         (
                                             <option value="">No hay data</option>
 
