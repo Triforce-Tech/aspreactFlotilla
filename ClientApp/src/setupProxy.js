@@ -28,7 +28,7 @@ const context = [
     "/api/tipousuario",
     "/api/tipovehiculo",
     "/api/usuario",
-    "/api/vehicle",
+    "/api/vehiculo",
     "/api/registro",
     "/api/persona",
     "/api/cerrarsession",
